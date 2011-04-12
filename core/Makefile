@@ -1752,9 +1752,9 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 
 BROKEN_TARGET_PACKAGE := $(PRODUCT_OUT)/$(BROKEN_VERSION).zip
 
-.PHONY: otapackage bacon
+.PHONY: otapackage broken
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
-bacon: otapackage
+broken: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(BROKEN_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(BROKEN_TARGET_PACKAGE) > $(BROKEN_TARGET_PACKAGE).md5sum
 	@echo -e ${CL_CYN}""${CL_CYN}
