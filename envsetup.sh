@@ -24,6 +24,7 @@ Invoke ". build/envsetup.sh" from your shell to add the following functions to y
 - mka:     Builds using SCHED_BATCH on all processors
 - aospremote: Add git remote for matching AOSP repository
 - reposync: Parallel repo sync using ionice and SCHED_BATCH
+- repopick: Utility to fetch changes from Gerrit.
 - installboot: Installs a boot.img to the connected device.
 - installrecovery: Installs a recovery.img to the connected device.
 
@@ -1733,6 +1734,11 @@ alias mmp='dopush mm'
 alias mmmp='dopush mmm'
 alias mkap='dopush mka'
 alias cmkap='dopush cmka'
+
+function repopick() {
+    T=$(gettop)
+    $T/build/tools/repopick.py $@
+}
 
 # Force JAVA_HOME to point to java 1.7 if it isn't already set.
 #
