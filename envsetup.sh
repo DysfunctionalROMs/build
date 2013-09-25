@@ -79,6 +79,7 @@ function check_product()
 
     if (echo -n $1 | grep -q -e "^broken_") ; then
        BROKEN_BUILD=$(echo -n $1 | sed -e 's/^broken_//g')
+       export BUILD_NUMBER=$((date +%s%N ; echo $BROKEN_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10)
     else
        BROKEN_BUILD=
     fi
