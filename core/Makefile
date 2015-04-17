@@ -227,7 +227,7 @@ endif
 	$(hide) TARGET_BUILD_TYPE="$(TARGET_BUILD_VARIANT)" \
 			TARGET_BUILD_FLAVOR="$(TARGET_PRODUCT)-$(TARGET_BUILD_VARIANT)" \
 			TARGET_DEVICE="$(TARGET_VENDOR_DEVICE_NAME)" \
-			SLIM_DEVICE="$(TARGET_DEVICE)" \
+			BROKEN_DEVICE="$(TARGET_DEVICE)" \
 			PRODUCT_NAME="$(TARGET_VENDOR_PRODUCT_NAME)" \
 			PRODUCT_BRAND="$(PRODUCT_BRAND)" \
 			PRODUCT_DEFAULT_LANGUAGE="$(call default-locale-language,$(PRODUCT_LOCALES))" \
@@ -1648,7 +1648,7 @@ endif
 ifeq ($(WITH_GMS),true)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
 else
-ifneq ($(SLIM_BUILD),)
+ifneq ($(BROKEN_BUILD),)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
 else
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
@@ -1682,14 +1682,53 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-SLIM_TARGET_PACKAGE := $(PRODUCT_OUT)/$(SLIM_MOD_VERSION).zip
+BROKEN_TARGET_PACKAGE := $(PRODUCT_OUT)/$(BROKEN_MOD_VERSION).zip
 
-.PHONY: otapackage bacon
+.PHONY: otapackage broken
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
-bacon: otapackage
-	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(SLIM_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(SLIM_TARGET_PACKAGE) > $(SLIM_TARGET_PACKAGE).md5sum
-	@echo -e ${CL_CYN}"Package Complete: $(SLIM_TARGET_PACKAGE)"${CL_RST}
+broken: otapackage
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(BROKEN_TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(BROKEN_TARGET_PACKAGE) > $(BROKEN_TARGET_PACKAGE).md5sum
+	@echo -e ${CL_CYN}""${CL_CYN}
+	@echo -e ${CL_CYN}"................................................................................."${CL_CYN}
+	@echo -e ${CL_CYN}"..........   @@@@@@@   @@@@@@@    @@@@@@   @@@  @@@  @@@@@@@@  @@@  @@@   ......."${CL_CYN} 
+	@echo -e ${CL_CYN}"..........   @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@  @@@  @@@@@@@@  @@@@ @@@   ......."${CL_CYN} 
+	@echo -e ${CL_CYN}"..........   @@!  @@@  @@!  @@@  @@!  @@@  @@!  !@@  @@!       @@!@!@@@   ......."${CL_CYN}
+	@echo -e ${CL_CYN}"..........   !@   @!@  !@!  @!@  !@!  @!@  !@!  @!!  !@!       !@!!@!@!   ......."${CL_CYN}
+	@echo -e ${CL_CYN}"..........   @!@!@!@   @!@!!@!   @!@  !@!  @!@@!@!   @!!!:!    @!@ !!@!   ......."${CL_CYN}
+	@echo -e ${CL_CYN}"..........   !!!@!!!!  !!@!@!    !@!  !!!  !!@!!!    !!!!!:    !@!  !!!   ......."${CL_CYN}
+	@echo -e ${CL_CYN}"..........   !!:  !!!  !!: :!!   !!:  !!!  !!: :!!   !!:       !!:  !!!   ......."${CL_CYN}
+	@echo -e ${CL_CYN}"..........   :!:  !:!  :!:  !:!  :!:  !:!  :!:  !:!  :!:       :!:  !:!   ......."${CL_CYN}
+	@echo -e ${CL_CYN}"..........   :: ::::  ::   :::  ::::: ::   ::  :::   :: ::::   ::   ::    ......."${CL_CYN}
+	@echo -e ${CL_CYN}"..........   :: : ::    :   : :   : :  :    :   :::  : :: ::   ::    :    ......."${CL_CYN}
+	@echo -e ${CL_CYN}"................................................................................."${CL_CYN}
+	@echo -e ${CL_CYN}"...............................  @@@@@@    @@@@@@  .............................."${CL_CYN}
+	@echo -e ${CL_CYN}"..............................  @@@@@@@@  @@@@@@@  .............................."${CL_CYN}
+	@echo -e ${CL_CYN}"..............................  @@!  @@@  !@@  .................................."${CL_CYN}
+	@echo -e ${CL_CYN}"..............................  !@!  @!@  !@!   ................................."${CL_CYN}
+	@echo -e ${CL_CYN}"..............................  @!@  !@!  !!@@!!  ..............................."${CL_CYN}
+	@echo -e ${CL_CYN}"..............................  !@!  !!!   !!@!!!  .............................."${CL_CYN}
+	@echo -e ${CL_CYN}"..............................  !!:  !!!       !:!  ............................."${CL_CYN}
+	@echo -e ${CL_CYN}"..............................  :!:  !:!      !:!  .............................."${CL_CYN}
+	@echo -e ${CL_CYN}"..............................  ::::: ::  :::: ::  .............................."${CL_CYN}
+	@echo -e ${CL_CYN}"...............................  : :  :   :: : :  ..............................."${CL_CYN}
+	@echo -e ${CL_CYN}"................................................................................."${CL_CYN}
+	@echo -e ${CL_CYN}"...................................Brokenpop....................................."${CL_CYN}
+	@echo -e ${CL_CYN}"..........................Based on Android 5.1 Lollipop.........................."${CL_CYN}
+	@echo -e ${CL_RST}""${CL_RST}
+	@echo -e ${CL_YLW}"...........................Its Done........Getcha Some..........................."${CL_YLW}
+	@echo -e ${CL_YLW}"...........................Steady Fucking Breaking Shit.........................."${CL_YLW}
+	@echo -e ${CL_RST}""${CL_RST}
+	@echo -e ${CL_BLU}"================================================================================="${CL_BLU}
+	@echo -e ${CL_RST}"$(BROKEN_TARGET_PACKAGE)"${CL_RST}
+	@echo -e ${CL_BLU}"================================================================================="${CL_BLU}
+
+ifeq ($(USE_PREBUILT_CHROMIUM),1)
+ifneq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
+	@echo "Running Chromium prebuilt setup script..."
+	$(hide) . $(TOPDIR)vendor/broken/tools/chromium_prebuilt.sh $(TOP)
+endif
+endif
 
 endif    # recovery_fstab is defined
 endif    # TARGET_NO_KERNEL != true

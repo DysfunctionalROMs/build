@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (C) 2012-2013, The SlimRoms Project
+# Copyright (C) 2012-2013, The BrokenROM Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ except:
     device = product
 
 if not depsonly:
-    print("Device %s not found. Attempting to retrieve device repository from SlimRoms Github (http://github.com/SlimRoms)." % device)
+    print("Device %s not found. Attempting to retrieve device repository from BrokenROM Github (http://github.com/BrokenROM)." % device)
 
 repositories = []
 
@@ -70,7 +70,7 @@ def add_auth(githubreq):
         githubreq.add_header("Authorization","Basic %s" % githubauth)
 
 if not depsonly:
-    githubreq = urllib.request.Request("https://api.github.com/search/repositories?q=%s+user:SlimRoms+in:name+fork:true" % device)
+    githubreq = urllib.request.Request("https://api.github.com/search/repositories?q=%s+user:BrokenROM+in:name+fork:true" % device)
     add_auth(githubreq)
     try:
         result = json.loads(urllib.request.urlopen(githubreq).read().decode())
@@ -152,7 +152,7 @@ def get_revision(manifest=None, p="android_build"):
 
 def get_from_manifest(devicename):
     try:
-        lm = ElementTree.parse(".repo/local_manifests/slim_manifest.xml")
+        lm = ElementTree.parse(".repo/local_manifests/broken_manifest.xml")
         lm = lm.getroot()
     except:
         lm = ElementTree.Element("manifest")
@@ -176,7 +176,7 @@ def get_from_manifest(devicename):
 
 def is_in_manifest(projectname):
     try:
-        lm = ElementTree.parse(".repo/local_manifests/slim_manifest.xml")
+        lm = ElementTree.parse(".repo/local_manifests/broken_manifest.xml")
         lm = lm.getroot()
     except:
         lm = ElementTree.Element("manifest")
@@ -200,7 +200,7 @@ def is_in_manifest(projectname):
 
 def add_to_manifest(repositories, fallback_branch = None):
     try:
-        lm = ElementTree.parse(".repo/local_manifests/slim_manifest.xml")
+        lm = ElementTree.parse(".repo/local_manifests/broken_manifest.xml")
         lm = lm.getroot()
     except:
         lm = ElementTree.Element("manifest")
@@ -213,7 +213,7 @@ def add_to_manifest(repositories, fallback_branch = None):
             continue
 
         if "/" not in repo_name:
-            repo_name = "%s/%s" % ("SlimRoms", repo_name)
+            repo_name = "%s/%s" % ("BrokenROM", repo_name)
 
         print('Adding dependency: %s -> %s' % (repo_name, repo_target))
 
@@ -238,7 +238,7 @@ def add_to_manifest(repositories, fallback_branch = None):
     raw_xml = ElementTree.tostring(lm).decode()
     raw_xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + raw_xml
 
-    f = open('.repo/local_manifests/slim_manifest.xml', 'w')
+    f = open('.repo/local_manifests/broken_manifest.xml', 'w')
     f.write(raw_xml)
     f.close()
 
@@ -252,7 +252,7 @@ def fetch_dependencies(repo_path, fallback_branch = None):
     _fetch_dep_cache.append(repo_path)
 
     print('Looking for dependencies')
-    dependencies_path = repo_path + '/slim.dependencies'
+    dependencies_path = repo_path + '/broken.dependencies'
     syncable_repos = []
 
     if os.path.exists(dependencies_path):
@@ -263,7 +263,7 @@ def fetch_dependencies(repo_path, fallback_branch = None):
         for dependency in dependencies:
             repo_name = dependency['repository']
             if "/" not in repo_name:
-                repo_name = "%s/%s" % ("SlimRoms", repo_name)
+                repo_name = "%s/%s" % ("BrokenROM", repo_name)
 
             if not is_in_manifest(repo_name):
                 fetch_list.append(dependency)
@@ -348,5 +348,5 @@ else:
             print("Done")
             sys.exit()
 
-print("Repository for %s not found in the SlimRoms Github repository list. If this is in error, you may need to manually add it to your local_manifests/slim_manifest.xml." % device)
+print("Repository for %s not found in the BrokenROM Github repository list. If this is in error, you may need to manually add it to your local_manifests/broken_manifest.xml." % device)
 
