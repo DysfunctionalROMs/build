@@ -58,5 +58,6 @@ fi
 echo "ro.build.characteristics=$TARGET_AAPT_CHARACTERISTICS"
 
 echo "ro.broken.device=$BROKEN_DEVICE"
+echo "ro.broken.model=$PRODUCT_MODEL"
 
 echo "# end build properties"
