@@ -1018,7 +1018,7 @@ INTERNAL_SYSTEMIMAGE_FILES := $(filter $(TARGET_OUT)/%, \
     $(RECOVERY_RESOURCE_ZIP))
 
 systemimage-squisher: $(INTERNAL_SYSTEMIMAGE_FILES)
-	@echo -e "Squishing this bad boy...!"
+	@echo -e ${CL_RED}"Squishing this bad boy...!"${CL_RST}
 	$(hide) APKCERTS=$(APKCERTS_FILE) ./vendor/broken/tools/squisher
 
 .PHONY: systemimage-squisher
