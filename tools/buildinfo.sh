@@ -57,7 +57,7 @@ if [ "$TARGET_UNIFIED_DEVICE" == "" ] ; then
 fi
 echo "ro.build.characteristics=$TARGET_AAPT_CHARACTERISTICS"
 
-echo "ro.broken.device=$BROKEN_DEVICE"
+echo "ro.broken.device=$TARGET_DEVICE"
 echo "ro.broken.model=$PRODUCT_MODEL"
 
 echo "# end build properties"
