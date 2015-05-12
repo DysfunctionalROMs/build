@@ -1832,8 +1832,8 @@ else
 endif
 endif
 
-#BOOT_ZIP_FROM_IMAGE_SCRIPT := ./build/tools/releasetools/boot_flash_from_image
-#KERNEL_PATH := $(TARGET_KERNEL_SOURCE)/arch/arm/configs/$(TARGET_KERNEL_CONFIG)
+BOOT_ZIP_FROM_IMAGE_SCRIPT := ./build/tools/releasetools/boot_flash_from_image
+KERNEL_PATH := $(TARGET_KERNEL_SOURCE)/arch/arm/configs/$(TARGET_KERNEL_CONFIG)
 #BOOT_ZIP_OUT_FILE := Broken-Kernel-$(DEVICE).zip
 
 ifeq ($(TARGET_OTA_ASSERT_DEVICE),)
@@ -1908,11 +1908,11 @@ broken: otapackage
 	@echo -e ${CL_RST}"$(BROKEN_TARGET_PACKAGE)"${CL_RST}
 	@echo -e ${CL_BLU}"================================================================================="${CL_BLU}
 
-#bootzip: bootimage
-#	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \
-#	   $(recovery_fstab) \
-#	   $(OUT) \
-#	   $(TARGET_DEVICE)
+bootzip: bootimage
+	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \
+	   $(recovery_fstab) \
+	   $(OUT) \
+	   $(TARGET_DEVICE)
 	   
 # -----------------------------------------------------------------
 # The factory package
