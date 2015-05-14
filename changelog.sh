@@ -5,12 +5,12 @@
 # . build/changelog.sh :) *After syncing the repo.*
 
 _now=$(date +"%m-%d-%Y")
-_file=build/BrokenChangelog/$_now/Broken-Changelog-$_now.txt
+_file=changelog/BrokenChangelog/$_now/Broken-Changelog-$_now.txt
 
-mkdir -p build/BrokenChangelog/
+mkdir -p changelog/BrokenChangelog/
 
-mkdir -p build/BrokenChangelog/$_now
+mkdir -p changelog/BrokenChangelog/$_now
 
-chmod 777 -R build/BrokenChangelog
+chmod 777 -R changelog/BrokenChangelog
 
 repo forall -pc git log --oneline --reverse --no-merges --since=14.day.ago >  $_file
