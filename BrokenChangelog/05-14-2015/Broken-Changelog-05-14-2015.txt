@@ -1,0 +1,287 @@
+
+project build/
+6e3798f we be 5.1
+b4ecd04 we be 5.1.1
+
+project device/oneplus/bacon/
+ae357dd Breaking it back the way it was....
+9a7e839 our shit
+
+project device/oppo/msm8974-common/
+5210045 Unndeed bools for now
+bfe0062 enable preload boot ani
+
+project frameworks/av/
+0f7631d Revert "nuplayer: do not use cached source for wvm content -- DO NOT MERGE"
+11909b2 stagefright: httplive: Bring in line with upstream
+ced9c54 Revert "audio: Update timestamp for offload playback after EOS."
+
+project frameworks/base/
+82d95ee Statusbar: Mobile and Wifi network icons color, (1/2):
+1471f94 the rest of independant Wifi/Network icon colors [1/2]
+5af7a14 Show carrier label / custom & change color [1/2]
+5a30e67 Rearrange everything
+a1a2615 [1/3] frameworks/base: add "Accept all files" option for incoming files via Bluetooth
+c2bd5e5 fix blue H+ icon in statusbar
+273b046 Intercept Home button press to wake device
+8517faa environment: return external dir if secondary is not defined
+7c26d11 Make "SD Card removed" notification dismissible if the removed SD Card is not the primary storage
+dd3e7f5 base: fix external sdcard mountpoint
+a6bf526 Forward Port: Smoother Upload and Download Animation
+9e88cdb NavBar tile [1/2]
+8fdd59b App Circle Bar Tile [1/2]
+1530a9d Reboot/Recovery tile (1/2)
+e23d5f5 fix for systemui crash for dual sim users
+6dbda23 Add user configurable lockscreen shortcuts [1/2]
+09373ac Revert "SystemUI: add quick settings pull down with one finger"
+b143c46 keyguard: dont show check symbol key when quick unlock is enabled
+22fbf3b bootanimation: allow preload the bootanimation
+ee76dd7 bootanimation: allow using RGB565
+8ad59d4 SystemUI: add quick settings pull down with one finger
+d3d07fe Changing Broken boot imagery
+90be8b6 Fix volume key music control with ambient display enabled
+9502528 Add music tile (1/2)
+6c8c5dd Force Expanded Notifications (1/2)
+dc12fff Fixing Music tile
+d315b1a Revert "Frameworks: Do not allow to access quick settings on secure lockscreen - option (1/2)"
+8a30957 Give the power menu an animation *Thanks to Omni for the parts I used
+e28a261 inputservice: Allow disabling the usage of cursor layers.
+6788e99 framework: fix screenshot and rotation animation for devices with abnormal hw rotation
+9d2a240 Add support for QC's time_daemon
+eaa27ac [ActivityManager] Prevent provider from been created twice.
+b30461d [ActivityManager] Reset ActivityRecord's waitingVisible
+66c9d87 lowmemorykiller: Overwrite LMK parameters for low-tier devices
+4e02921 [ActivityManager] Ensure provider external access count will be released.
+c31ad20 [ActivityManager] Fix index out of bounds when updating next pss time.
+01c76aa [ActivityManager] Avoid orphan ContentProviderRecord.
+218f0ee [ActivityManager] Reduce report wrong anr activity
+14d5cc0 [ActivityManager] Fix adjust to wrong focused stack
+62e2b90 [ActivityManager] Set appropriate relation of task to home
+46a28fe [ActivityManager] Prevent application holding AMS lock
+552c9b8 [ActivityManager] Fix process record leakage.
+5c9e4dc [ActivityManager] Distinguish FG or BG receiver finished
+a2b8cbc [ActivityManager] Fix activity always visible.
+c14a085 lowmemorykiller: Fix high min-free values
+c88c1bf Alarm: add support for power off alarm
+04cc169 [ActivityManager] Avoid improper resume top activity.
+8ea295f [ActivityManager] Reduce report wrong anr activity
+c4d8605 [ActivityManager] Examine bad process before clean up application record
+d8d983d [ActivityManager] Fix ServiceRecord leakage
+b104560 [ActivityManager] Do not add service to reschedule after removing users.
+b87429f [ActivityManager] Improve task order of getRunningTasks.
+cfdffe2 [ActivityManager] Fix index OOB when resetting removed task
+aac2f84 Add ProcessInfoService to activity manager.
+a584929 [ActivityManager] Fix index out of bounds when updating next pss time.
+6b47852 Trigger GC Delay for subsequent launches.
+7dd95a8 [ActivityManager] Skip receiver precisely.
+7cdbc7a bootanimation: Only try to shutdown the mediaplayer if it was prepared
+41b857a bootanimation: allow preload the bootanimation
+424b758 bootanimation: allow using RGB565
+8f8b92c Make sure emulated storage path index is 0
+77af062 SystemUI: make alarm text selector less blocky
+629dd0c Keyguard: don't refresh ui when screen off
+a2b4a2e Fix lockscreen selection view in landscape mode.
+50e3d0a Frameworks: Policy: implement a pin keypad shuffler [1/2]
+30158a5 bootanim: Add continuous splash support
+755f214 QS: add Sync tile (1/2)
+7e3c9e4 QS: Add Ambient Display Tile (1/2)
+06ebe5f AmbientDisplay: Remove option for adding QS tile for ambient display if device doesn't support it.
+b0df582 Frameworks: Do not allow to access quick settings on secure lockscreen - option (1/2)
+3d273d5 Return: Smart Pulldown [1/2]
+fa0f865 Fix Smart Pulldown
+212f0c4 [2/2] Frameworks: Slim doze options
+6b38c1f [1/3] Frameworks: Proximity speaker
+052df5a Add slimseekbar
+8e00ea5 Frameworks: port SlimSeekBarPreference to SlimLP
+a1e446d Fix qs panel expansion
+78ac2ea Fix lockscreen notification expansion
+
+project frameworks/native/
+5efd990 binder: Add readuInt64() symbol for LG RIL compatibility
+6ee3e4f sensorservice: Don't replace HAL orientation sensor
+
+project frameworks/opt/telephony/
+d941dac Revert "Revert "Start populating sub_id again.""
+
+project hardware/qcom/display-caf/msm8974/
+8db4dfe hwc: vds: isActive need to be set for wfd using vds solution
+4d0417d hwc: Avoid redoing GPU comp under certain conditions
+a25137d hwc: Add check for dirtyRect clear call.
+
+project hardware/qcom/media-caf/msm8974/
+f1cb445 mm-video-v4l2: vidc: vdec: handle flush while codec config ETB for hevc decoder
+
+project kernel/oneplus/AK-OnePone-Reborn/
+eaf2d79 gcc5: gpu: msm: fix 5.0 compile
+f2ba02a gcc5: ARM: 8158/1: LLVMLinux: use static inline in ARM ftrace.h
+93f7985 gcc5: fix warnings spam with gcc5
+333c186 gcc5: msm: camera_oppo: fix warnings with GCC 5.0
+3016193 gcc5: ak-bacon-build: back to the future
+1cb99b5 gcc5: makefile: if -O3 disable array-bounds false positive
+a33aa3e gcc5: sound/soc/codecs/wcd9xxx-mbhc.c fix warning: initialization discards 'const' qualifier from pointer target type
+9914b72 gcc5: arm: enable cortex_a15 optimization
+7885905 gcc5: drivers/staging/prima/CORE/MAC/src/pe/sch/schBeaconGen.c: fix warning: passing argument 2 of 'vos_mem_compare' discards 'const' qualifier from pointer target type
+e442f31 gcc5: drivers/staging/prima/CORE/HDD/src/wlan_hdd_wmm.c: fix warning: logical not is only applied to the left hand side of comparison
+716ed7c gcc5: drivers/video/msm/mdss/mdss_mdp_pp.c: fix warning: logical not is only applied to the left hand side of comparison
+6818e2b gcc5: drivers/video/msm/mdss/mdss_mdp_pp.c: fix warning: comparison of constant '15' with boolean expression is always false
+42b3ec5 ak-bacon-build: compile with the new Uber 5.1 Toolchain
+ca45de2 Support GCC 5.0
+78d82d0 Update GCC 4.0
+9773a2f oppo: i2c: drop nfc freq to 19.2 MHz
+0aa02c1 msm8974: usb: dts: Set the usb max speed to high
+d661096 msm8974: usb: dwc3: Set the max speed
+cf3df4d Kernel Version: AK.237.OPO.CM12.1
+92a669c mutex: Move mutex spinning code from sched/core.c back to mutex.c
+a64d98e mutex: Make more scalable by doing less atomic operations
+69b611f mutex: Queue mutex spinners with MCS lock to reduce cacheline contention
+32ff563 mutex: Back out architecture specific check for negative mutex count
+a7daf9e klist: use same naming scheme as hlist for klist_add_after()
+4c9b216 cpufreq_stats: do not remove sysfs files if frequency table is not present
+11821cd ipv4: fix NULL checking in devinet_ioctl()
+d608c45 ftrace: Disable function tracing during suspend/resume and hibernation, again
+207cd67 Disable -fconserve-stack on ARM v2
+5f003c8 ./Makefile: tell gcc optimizer to never introduce new data races
+eff5937 fs: Add a missing permission check to do_umount
+160d06d fs/namei.c: fix: warning: 'old_path.*' may be used uninitialized in this function
+7114c29 USB: storage: ene_ub6250: fix warning for the frame size
+205f56c Kernel Version: AK.238.OPO.CM12.1
+5ffeebe video: mdss: Report PCC values from pp registers
+d5cd4b8 ipv4: Missing sk_nulls_node_init() in ping_unhash().
+abc7e0f ARM: add .gitignore entry for sha256-core.S
+3db314f arm: crypto: Add optimized SHA-256/224
+3d0d88b ak_bacon_defconfig: cleaned and enable SHA256_ARM
+5ff5f37 crypto: arm/aes update NEON AES module to latest OpenSSL version
+973cc40 ak_bacon_defconfig: enable MMC_BLOCK_DEFERRED
+c10e2f8 Kernel Version: AK.239.OPO.CM12.1
+bb33c59 ARM: dts: A0001: Update Truly panel init sequence
+d559bb7 Kernel Version: AK.240.OPO.CM12.1
+be535da msm: msm_hotplug: Add MSM hotplug driver
+b42689c msm: msm_hotplug: disable by default
+de74aa5 msm: intelli_hotplug: Add Intelli Hotplug driver
+ed7225b ak_bacon_defconfig: enable INTELLI_HOTPLUG & MSM_HOTPLUG
+5d478ce Kernel Version: AK.241.OPO.CM12.1
+9902aa6 Revert "cpufreq: smartmax: adjust tunable to @gianton profile"
+e5775ab fs: f2fs: bring up to date - 2015-04-23
+28bb857 msm: mdss: KCAL: Queue changes when panel is powered off
+22004be msm: mdss: KCAL: Apply default values on boot
+41977df msm: mdss: KCAL: Read values from MDP registers wherever possible
+41995a9 Kernel Version: AK.242.OPO.CM12.1
+24c92d0 Revert "msm: mdss: KCAL: Read values from MDP registers wherever possible"
+8a3434d prima: Update to LA.BF.1.1.1_rb1.20
+7899a23 wlan: Synchronize cancel remain on channel and ROC expiry.
+b6ff488 wlan: Fix for dead lock during cancel ROC.
+c2ce1ab Kernel Version: AK.243.OPO.CM12.1
+8a73726 ARM: dts: msm: update the DSI PHY lane configuration settings
+3f05589 mmc: core: update host->card after getting RCA for SD card
+15199a4 msm: camera: add check for csid_cid to prevent of overwrite memory
+f2e14b8 msm: camera: ispif: Validate vfe_intf parameter
+9894442 msm: sps: Squashed commit of upstream changes
+dabb66b mdss: dsi: fix potential race conditions in mdp busy wait
+f200556 mdss: fb: wait for idle only on last fb release
+b83f0f0 msm: mdss: Adjust fence timeouts
+7185acb msm: mdss: update max fence wait timeout for all acquire fence
+bc3925f cm: Disable CONFIG_SUSPEND_TIME
+20da553 ak_bacon_defconfig: disable SUSPEND_TIME
+ed7786c Kernel Version: AK.244.OPO.CM12.1
+b3a0ce7 cpufreq: interactive: Ramp up directly if cpu_load exceeds 100
+0370666 ipv6: Limit mtu to 65575 bytes
+55a8829 net: loopback: set default mtu to 64K
+64ebb44 Kernel Version: AK.245.OPO.CM12.1
+
+project packages/apps/Browser/
+4739ec5 Revert "Add Website Settings as valid fragment"
+162e3d0 Revert "Fix exception in Browser Settings"
+528ae85 Implement BrowserPreferencePage.isValidFragment.
+772e427 Forbid javascript- and file-scheme intents
+
+project packages/apps/Camera2/
+42d377e Camera2: Stop using GPS when going to background
+97468a0 Camera2: Remove settings preferences only once
+ba24e60 Camera2: fix video recording for older drivers
+b8d5777 Camera2: Samsung 4k Camera workaround.
+2d3c4a0 Camera2: disable 4k snapshot when samsung4k is enabled.
+44b6807 Camera: Disable Camera Launcher when both Front and Back sensors are not detected
+39ce352 Automatic translation import
+
+project packages/apps/InCallUI/
+a0a56f5 [3/3] InCallUI: Proximity speaker
+6119daf InCallUI: clean up prox speaker code and improve usability
+f014a68 [2/2] InCallUI: let InCallUI handle proximity sensor for incoming calls
+7977b27 Proximity speaker: Fix issue with routing to speaker when connected to bluetooth
+
+project packages/apps/LockClock/
+02511af Automatic translation import
+f7ab915 Automatic translation import
+
+project packages/apps/Mms/
+93bd0c1 Relocating color calls for future mods
+f4f74da Color hackery
+93bb680 Revert "Color hackery"
+3a7ad91 Revert "Relocating color calls for future mods"
+8952757 Rearranging/renaming shit
+f082798 Layers 2.1
+
+project packages/apps/Settings/
+e4b543c Statusbar: Mobile and Wifi network icons color, (2/2):
+13ddc0e Statusbar: Mobile and Wifi network icons color, (2/2): and make em switches - Custom mobile and Wifi network icons color,   (normal and fully connected) - Custom mobile and Wifi network activity icons color,   (normal and fully connected) - Custom airplane mode icon color
+563171d the rest of independant Wifi/Network icon colors [2/2]
+28b658e Revert "Fix Settings app crash for devices with no USB support."
+d56dc6a Show carrier label / custom & change color [2/2]
+2e505f9 [3/3]Settings: add "Accept all files" option for incoming files via BT
+cb6f260 NavBar tile [2/2]
+435e7ca App Circle Bar Tile [2/2]
+1be502a Reboot/Recovery tile (2/2)
+55739e6 Add user configurable lockscreen shortcuts [2/2]
+904fa33 Add user configurable lockscreen shortcuts [2/2]
+0d9e676 Revert "Quicksettings quickpulldown"
+830d620 Settings: add quick pulldown listpreference
+e74b989 Adding a few needed summaries
+cc7ad78 Add music tile (2/2)
+3661050 Force Expanded Notifications (2/2)
+362e793 Revert "Rework: Disable Quick pulldown on lockscreen"
+cab78c2 bluetooth: Show a refresh icon on the select devices screen
+80048e6 Settings: Security: implement a pin keypad shuffler [2/2]
+ae13575 QS: add Sync tile (2/2)
+cbea1e7 QS: Add Ambient Display Tile (2/2)
+857aa8d Settings: Do not allow to access quick settings on secure lockscreen - option (2/2)
+fa50f3a Return: Smart Pulldown [2/2]
+45c2698 [1/2] Settings: Slim doze options
+b35550f Settings: fix app version overlaying package name
+
+project packages/providers/MediaProvider/
+3baac1e Automatic translation import
+
+project packages/providers/TelephonyProvider/
+ecdea83 Properly upgrade DB
+fb2a277 APNs: Add statement to update carriers table to include read_only column
+c6ad84d Add proper DB upgrade path.
+
+project packages/services/Telephony/
+8d8dc5a Implement toggleLte
+3f94288 toggleLTE: switch to Global mode on devices that default to it
+a1cb458 [2/3] Telephony: Proximity speaker
+
+project platform_manifest/
+f8b1706 track our own BT for now
+7354ae6 back to slim bt
+ebda952 kill slimlauncher
+dcad1c0 Slims nfc
+3eacb7c Our own services/Telephony
+ddf6c20 slims extras
+5a9ac23 derp on me...
+8d76bb1 Minor fix in remote
+dee81e6 add remote & some newer chains
+8a53270 forgot the remote, smh
+
+project vendor/broken/
+668d8e6 release builds
+b748bed versioning
+44069a3 kill slimlauncher
+43d66c3 Uncommenting out some services bools that shouldve been dont back when i did the fw shit..
+c19aa3a Added d2spr
+9d1fcd3 bringing apns up to date
+851f374 Update OmniSwitch
+
+project vendor/oppo/
+66af301 find7: Remove libpn544_fw.so
+fd9e8ed n3: Update blobs to 150311 OTA.
