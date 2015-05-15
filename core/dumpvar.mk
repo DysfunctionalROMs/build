@@ -88,5 +88,20 @@ ifeq ($(CYNGN_TARGET),true)
 $(info   CYNGN_TARGET=$(CYNGN_TARGET))
 $(info   CYNGN_FEATURES=$(CYNGN_FEATURES))
 endif
+ifeq ($(STRICT),true)
+$(info   STRICT=$(STRICT))
+endif
+ifeq ($(USE_O3),true)
+$(info   O3=$(USE_O3))
+endif
+ifeq ($(GRAPHITE),true)
+$(info   GRAPHITE=$(GRAPHITE))
+endif
+ifeq ($(LTO),true)
+$(info   LTO=$(LTO))
+endif
+ifeq ($(A15_QUAD),true)
+$(info   A15_QUAD=$(A15_QUAD))
+endif 
 $(info ============================================)
 endif

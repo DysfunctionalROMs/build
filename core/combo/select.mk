@@ -49,6 +49,13 @@ $(combo_var_prefix)HAVE_STRLCPY := 0
 $(combo_var_prefix)HAVE_STRLCAT := 0
 $(combo_var_prefix)HAVE_KERNEL_MODULES := 0
 
+ifeq ($(USE_O3),true)
+$(combo_var_prefix)GLOBAL_CFLAGS := -O3 -DNDEBUG -fivopts -ffunction-sections -fdata-sections -funswitch-loops -fomit-frame-pointer -ftracer -Wno-unused-parameter -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-exceptions -Wno-multichar
+$(combo_var_prefix)RELEASE_CFLAGS := -O3 -DNDEBUG -fivopts -ffunction-sections -fdata-sections -funswitch-loops -fomit-frame-pointer -ftracer -Wno-unused-parameter -Wno-unused-but-set-variable -Wno-maybe-uninitialized
+$(combo_var_prefix)GLOBAL_CPPFLAGS := -O3 -DNDEBUG -fivopts -ffunction-sections -fdata-sections -funswitch-loops -fomit-frame-pointer -ftracer -Wno-unused-parameter -Wno-unused-but-set-variable -Wno-maybe-uninitialized
+$(combo_var_prefix)GLOBAL_LDFLAGS := -Wl,-O1 -Wl,--as-needed -Wl,--relax -Wl,--sort-common -Wl,--gc-sections
+else
+
 $(combo_var_prefix)GLOBAL_CFLAGS := -fno-exceptions -Wno-multichar
 $(combo_var_prefix)RELEASE_CFLAGS := -O2 -g -fno-strict-aliasing
 $(combo_var_prefix)GLOBAL_CPPFLAGS :=
