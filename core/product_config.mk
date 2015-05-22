@@ -181,7 +181,7 @@ include $(BUILD_SYSTEM)/device.mk
 
 # A BROKEN build needs only the BROKEN product makefiles.
 ifneq ($(BROKEN_BUILD),)
-  all_product_configs := $(shell ls device/*/$(BROKEN_BUILD)/broken.mk)
+  all_product_configs := $(shell find device -path "*/$(BROKEN_BUILD)/broken.mk")
 else
   ifneq ($(strip $(TARGET_BUILD_APPS)),)
   # An unbundled app build needs only the core product makefiles.
