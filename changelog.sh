@@ -13,4 +13,4 @@ mkdir -p changelog/BrokenChangelog/$_now
 
 chmod 777 -R changelog/BrokenChangelog
 
-repo forall -pc git log --oneline --reverse --no-merges --since=14.day.ago >  $_file
+repo forall -pc git log --oneline --reverse --no-merges --since=7.day.ago >  $_file
