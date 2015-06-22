@@ -36,13 +36,9 @@ endif
 
 ifeq ($(PLATFORM_LINARO_4.9),true)
 $(combo_2nd_arch_prefix)TARGET_NDK_GCC_VERSION := 4.9
-else
-$(combo_2nd_arch_prefix)TARGET_NDK_GCC_VERSION := 4.8
-endif
-
-ifeq ($(PLATFORM_LINARO_4.9),true)
 $(combo_2nd_arch_prefix)TARGET_GCC_VERSION := 4.9
 else
+$(combo_2nd_arch_prefix)TARGET_NDK_GCC_VERSION := 4.8
 $(combo_2nd_arch_prefix)TARGET_GCC_VERSION := 4.8
 endif
 
@@ -89,20 +85,6 @@ $(combo_2nd_arch_prefix)TARGET_arm_CFLAGS := -O2 -fomit-frame-pointer -fstrict-a
 $(combo_2nd_arch_prefix)TARGET_thumb_CFLAGS := -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing
 endif
 
-# Set FORCE_ARM_DEBUGGING to "true" in your buildspec.mk
-# or in your environment to force a full arm build, even for
-# files that are normally built as thumb; this can make
-# gdb debugging easier.  Don't forget to do a clean build.
-#
-# NOTE: if you try to build a -O0 build with thumb, several
-# of the libraries (libpv, libwebcore, libkjs) need to be built
-# with -mlong-calls.  When built at -O0, those libraries are
-# too big for a thumb "BL <label>" to go from one end to the other.
-ifeq ($(FORCE_ARM_DEBUGGING),true)
-  $(combo_2nd_arch_prefix)TARGET_arm_CFLAGS += -fno-omit-frame-pointer
-  $(combo_2nd_arch_prefix)TARGET_thumb_CFLAGS += -marm -fno-omit-frame-pointer
-endif
-
 android_config_h := $(call select-android-config-h,linux-arm)
 
 $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += \
@@ -125,7 +107,7 @@ $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += \
 # "-Wall -Werror" due to a commom idiom "ALOGV(mesg)" where ALOGV is turned
 # into no-op in some builds while mesg is defined earlier. So we explicitly
 # disable "-Wunused-but-set-variable" here.
-ifneq ($(filter 4.6 4.6.% 4.7 4.7.% 4.8, $($(combo_2nd_arch_prefix)TARGET_GCC_VERSION)),)
+ifneq ($(filter 4.6 4.6.% 4.7 4.7.% 4.8.% 4.9.% 5.0.% 5.1.% 6.0.%, $($(combo_2nd_arch_prefix)TARGET_GCC_VERSION)),)
 $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += -fno-builtin-sin \
 			-fno-strict-volatile-bitfields
 endif
