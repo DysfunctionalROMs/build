@@ -36,13 +36,9 @@ endif
 
 ifeq ($(PLATFORM_LINARO_4.9),true)
 $(combo_2nd_arch_prefix)TARGET_NDK_GCC_VERSION := 4.9
-else
-$(combo_2nd_arch_prefix)TARGET_NDK_GCC_VERSION := 4.8
-endif
-
-ifeq ($(PLATFORM_LINARO_4.9),true)
 $(combo_2nd_arch_prefix)TARGET_GCC_VERSION := 4.9
 else
+$(combo_2nd_arch_prefix)TARGET_NDK_GCC_VERSION := 4.8
 $(combo_2nd_arch_prefix)TARGET_GCC_VERSION := 4.8
 endif
 
