@@ -1731,12 +1731,6 @@ otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 broken: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(BROKEN_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(BROKEN_TARGET_PACKAGE) > $(BROKEN_TARGET_PACKAGE).md5sum
-ifeq ($(USE_PREBUILT_CHROMIUM),true)
-ifneq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
-	@echo "Running Chromium prebuilt setup script..."
-	$(hide) . $(TOPDIR)vendor/broken/utils/chromium_prebuilt.sh $(TOP)
-endif
-endif
 	@echo -e ${CL_CYN}""${CL_CYN}
 	@echo -e ${CL_CYN}"................................................................................."${CL_CYN}
 	@echo -e ${CL_CYN}"..........   @@@@@@@   @@@@@@@    @@@@@@   @@@  @@@  @@@@@@@@  @@@  @@@   ......."${CL_CYN} 
@@ -1770,6 +1764,13 @@ endif
 	@echo -e ${CL_BLU}"================================================================================="${CL_BLU}
 	@echo -e ${CL_RST}"$(BROKEN_TARGET_PACKAGE)"${CL_RST}
 	@echo -e ${CL_BLU}"================================================================================="${CL_BLU}
+
+ifeq ($(USE_PREBUILT_CHROMIUM),1)
+ifneq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
+	@echo "Running Chromium prebuilt setup script..."
+	$(hide) . $(TOPDIR)vendor/broken/utils/chromium_prebuilt.sh $(TOP)
+endif
+endif
 
 bootzip: bootimage
 	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \

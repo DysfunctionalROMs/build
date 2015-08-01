@@ -653,6 +653,9 @@ function lunch()
 
     if [[ $USE_PREBUILT_CHROMIUM -eq 1 ]]; then
         chromium_prebuilt
+    else
+        # Unset flag in case user opts out later on
+        export PRODUCT_PREBUILT_WEBVIEWCHROMIUM=""
     fi
 
     set_stuff_for_environment
