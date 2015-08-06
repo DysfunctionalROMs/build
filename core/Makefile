@@ -1765,13 +1765,6 @@ broken: otapackage
 	@echo -e ${CL_RST}"$(BROKEN_TARGET_PACKAGE)"${CL_RST}
 	@echo -e ${CL_BLU}"================================================================================="${CL_BLU}
 
-ifeq ($(USE_PREBUILT_CHROMIUM),1)
-ifneq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
-	@echo "Running Chromium prebuilt setup script..."
-	$(hide) . $(TOPDIR)vendor/broken/utils/chromium_prebuilt.sh $(TOP)
-endif
-endif
-
 bootzip: bootimage
 	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \
 	   $(recovery_fstab) \
