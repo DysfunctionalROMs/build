@@ -2,7 +2,7 @@
 
 # To run this, simply cd to the Broken folder and run:
 
-# . build/changelog.sh :) *After syncing the repo.*
+# . build/weeklychangelog.sh :) *After syncing the repo.*
 
 _now=$(date +"%m-%d-%Y")
 _file=changelog/BrokenChangelog/$_now/Broken-Changelog-$_now.txt
