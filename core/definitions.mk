@@ -1789,10 +1789,17 @@ $(hide) (cd $(dir $@) && zip -r $(notdir $@) lib)
 $(hide) rm -rf $(dir $@)lib
 endef
 
+ifneq ($(TARGET_HAVE_SMALL_SYSTEM_PARTITION),true)
 #TODO: update the manifest to point to the dex file
 define add-dex-to-package
 $(hide) zip -0qj $@ $(dir $(PRIVATE_DEX_FILE))classes*.dex
 endef
+else
+#TODO: update the manifest to point to the dex file
+define add-dex-to-package
+$(hide) zip -qj $@ $(dir $(PRIVATE_DEX_FILE))classes*.dex
+endef
+endif
 
 # Add java resources added by the current module.
 #
