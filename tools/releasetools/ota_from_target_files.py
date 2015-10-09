@@ -601,22 +601,8 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 """ % bcb_dev)
 
   # Dump fingerprints
-  script.Print("Target: %s" % CalculateFingerprint(
-      oem_props, oem_dict, OPTIONS.info_dict))
-
-  script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
-  device_specific.FullOTA_InstallBegin()
-  
-  CopyInstallTools(output_zip)
-  script.UnpackPackageDir("install", "/tmp/install")
-  script.SetPermissionsRecursive("/tmp/install", 0, 0, 0755, 0644, None, None)
-  script.SetPermissionsRecursive("/tmp/install/bin", 0, 0, 0755, 0755, None, None)
-  
-  if OPTIONS.backuptool:
-    script.Mount("/system")
-    script.RunBackup("backup")
-    script.Unmount("/system")
-  
+  #script.Print("Target: %s" % CalculateFingerprint(
+  #    oem_props, oem_dict, OPTIONS.info_dict))
   script.Print(" ")
   script.Print(" ********************************************** ")
   script.Print(" *************Dysfunctional**ROMs************** ")
@@ -634,20 +620,26 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print(" ********************************************** ")
   script.Print(" ")
 
+  script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
+  device_specific.FullOTA_InstallBegin()
+  
+  CopyInstallTools(output_zip)
+  script.UnpackPackageDir("install", "/tmp/install")
+  script.SetPermissionsRecursive("/tmp/install", 0, 0, 0755, 0644, None, None)
+  script.SetPermissionsRecursive("/tmp/install/bin", 0, 0, 0755, 0755, None, None)
+  
+  if OPTIONS.backuptool:
+    script.Mount("/system")
+    script.Print("Running backup tool...")
+    script.RunBackup("backup")
+    script.Unmount("/system")
+
   system_progress = 0.75
 
   if OPTIONS.wipe_user_data:
     system_progress -= 0.1
   if HasVendorPartition(input_zip):
     system_progress -= 0.1
-
-  script.AppendExtra("if is_mounted(\"/data\") then")
-  script.ValidateSignatures("data")
-  script.AppendExtra("else")
-  script.Mount("/data")
-  script.ValidateSignatures("data")
-  script.Unmount("/data")
-  script.AppendExtra("endif;")
 
   if "selinux_fc" in OPTIONS.info_dict:
     WritePolicyConfig(OPTIONS.info_dict["selinux_fc"], output_zip)
@@ -713,17 +705,18 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   common.CheckSize(boot_img.data, "boot.img", OPTIONS.info_dict)
   common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
 
-  device_specific.FullOTA_PostValidate()
-
   if OPTIONS.backuptool:
     script.ShowProgress(0.02, 10)
-    
-    if block_based:
-      script.Mount("/system")
+
+    script.Print("Restoring system...")
     script.RunBackup("restore")
-    
-    if block_based:
-      script.Unmount("/system")
+
+    script.Unmount("/system")
+    script.Print("Flashing SuperSU...")
+    common.ZipWriteStr(output_zip, "supersu/supersu.zip",
+                   ""+input_zip.read("SYSTEM/addon.d/SuperSU.zip"))
+    script.Mount("/system")
+    script.FlashSuperSU()
 
   script.ShowProgress(0.05, 5)
   script.WriteRawImage("/boot", "boot.img")
