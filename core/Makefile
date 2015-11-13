@@ -1869,7 +1869,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 
 BROKEN_TARGET_PACKAGE := $(PRODUCT_OUT)/$(BROKEN_VERSION).zip
 
-.PHONY: otapackage broken bootzip
+.PHONY: otapackage broken
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 broken: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(BROKEN_TARGET_PACKAGE)
@@ -1908,11 +1908,11 @@ broken: otapackage
 	@echo -e ${CL_RST}"$(BROKEN_TARGET_PACKAGE)"${CL_RST}
 	@echo -e ${CL_BLU}"================================================================================="${CL_BLU}
 
-bootzip: bootimage
-	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \
-	   $(recovery_fstab) \
-	   $(OUT) \
-	   $(TARGET_DEVICE)
+#bootzip: bootimage
+#	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \
+#	   $(recovery_fstab) \
+#	   $(OUT) \
+#	   $(TARGET_DEVICE)
 	   
 # -----------------------------------------------------------------
 # The factory package
