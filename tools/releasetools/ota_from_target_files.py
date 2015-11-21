@@ -727,6 +727,31 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.WriteRawImage("/boot", "boot.img")
 
   script.ShowProgress(0.2, 10)
+  
+  # StayBroken
+  script.Print(" ")
+  script.Print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
+  script.Print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
+  script.Print("MMMMMMMM++++++++++++++++++++++++MMMMMMMM")
+  script.Print("MMMMMMMMMMMM++MMMMMMMMMMMM++MMMMMMMMMMMM")
+  script.Print("MMMMMMMMMMMM++MMMMMMMMMMMM++MMMMMMMMMMMM")
+  script.Print("MMMMM+++++++++MMMMMMMMMMMM++++++++MMMMMM")
+  script.Print("MMM++?MMMM++++++MMMMMMMM+++++MMMM=++MMMM")
+  script.Print("MM++MMMMMMM=++++++++++++++++MMMMMMM=+MMM")
+  script.Print("+++MMMMMMMMM+MMMMM++++MMMMM+MMMMMMMM++MM")
+  script.Print("MM+MMMMMMMM+MMMMMMM++MMMMMMM+MMMMMMM++MM")
+  script.Print("MM++MMMMMM+.MMMMMMM=:MMMMMMM++MMMMM++MMM")
+  script.Print("MMM +++++++MMMMMMMM++MMMMMMM++++++++MMMM")
+  script.Print("MMM =MMMMM++MMMMMMM++MMMMMMM++MMMMMM+MMM")
+  script.Print("MMMMMMMMMM:+?MMMM=++++,MMMM++MMMMMMMMMMM")
+  script.Print("MMMMMMMMMMMM++++++MMMM+++++~MMMMMMMMMMMM")
+  script.Print("MMMMMMMMMMMMMM+=MMMMMMMMM+=MMMMMMMMMMMMM")
+  script.Print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
+  script.Print(" ...+-+-+-+-+-+-+-+-+-+-+ +-+-+ +-+-+.. ")
+  script.Print(" ..|S|t|a|y|B|r|o|k|e|n||o|r||G|T|F|O|. ")
+  script.Print(" ...+-+-+-+-+-+-+-+-+-+-+ +-+-+ +-+-+.. ")
+  script.Print(" ")
+  
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
