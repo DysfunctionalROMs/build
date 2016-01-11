@@ -42,6 +42,11 @@ Usage:  ota_from_target_files [flags] input_target_files output_ota_package
       radio image. This option is only meaningful when -i is specified,
       because a full radio is always included in a full OTA if applicable.
 
+ --full_bootloader
+      When generating an incremental OTA, always include a full copy of
+      bootloader image. This option is only meaningful when -i is specified,
+      because a full bootloader is always included in a full OTA if applicable.
+
   -v  (--verify)
       Remount and verify the checksums of the files written to the
       system and vendor (if used) partitions.  Incremental builds only.
@@ -95,6 +100,9 @@ Usage:  ota_from_target_files [flags] input_target_files output_ota_package
       Override build.prop items with custom vendor init.
       Enabled when TARGET_UNIFIED_DEVICE is defined in BoardConfig
 
+  --stash_threshold <float>
+      Specifies the threshold that will be used to compute the maximum
+      allowed stash size (defaults to 0.8).
 """
 
 import sys
@@ -136,6 +144,10 @@ OPTIONS.full_radio = False
 OPTIONS.backuptool = True
 OPTIONS.override_device = 'auto'
 OPTIONS.override_prop = False
+OPTIONS.full_bootloader = False
+# Stash size cannot exceed cache_size * threshold.
+OPTIONS.cache_size = None
+OPTIONS.stash_threshold = 0.8
 
 def MostPopularKey(d, default):
   """Given a dict, return the key corresponding to the largest
@@ -857,7 +869,7 @@ def WriteBlockIncrementalOTAPackage(target_zip, source_zip, output_zip):
       output_zip=output_zip,
       script=script,
       metadata=metadata,
-      info_dict=OPTIONS.info_dict)
+      info_dict=OPTIONS.source_info_dict)
 
   # TODO: Currently this works differently from WriteIncrementalOTAPackage().
   # This function doesn't consider thumbprints when writing
@@ -1262,7 +1274,7 @@ def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
       output_zip=output_zip,
       script=script,
       metadata=metadata,
-      info_dict=OPTIONS.info_dict)
+      info_dict=OPTIONS.source_info_dict)
 
   system_diff = FileDifference("system", source_zip, target_zip, output_zip)
   script.Mount("/system", recovery_mount_options)
@@ -1612,6 +1624,8 @@ def main(argv):
       OPTIONS.incremental_source = a
     elif o == "--full_radio":
       OPTIONS.full_radio = True
+    elif o == "--full_bootloader":
+      OPTIONS.full_bootloader = True
     elif o in ("-w", "--wipe_user_data"):
       OPTIONS.wipe_user_data = True
     elif o in ("-n", "--no_prereq"):
@@ -1649,6 +1663,12 @@ def main(argv):
       OPTIONS.override_device = a
     elif o in ("--override_prop"):
       OPTIONS.override_prop = bool(a.lower() == 'true')
+    elif o == "--stash_threshold":
+      try:
+        OPTIONS.stash_threshold = float(a)
+      except ValueError:
+        raise ValueError("Cannot parse value %r for option %r - expecting "
+                         "a float" % (a, o))
     else:
       return False
     return True
@@ -1660,6 +1680,7 @@ def main(argv):
                                  "package_key=",
                                  "incremental_from=",
                                  "full_radio",
+                                 "full_bootloader",
                                  "wipe_user_data",
                                  "no_prereq",
                                  "extra_script=",
@@ -1674,7 +1695,8 @@ def main(argv):
                                  "no_fallback_to_full",
                                  "backup=",
                                  "override_device=",
-                                 "override_prop="
+                                 "override_prop=",
+                                 "stash_threshold="
                              ], extra_option_handler=option_handler)
 
   if len(args) != 2:
@@ -1731,6 +1753,11 @@ def main(argv):
       temp_zip_file = tempfile.NamedTemporaryFile()
       output_zip = zipfile.ZipFile(temp_zip_file, "w",
                                    compression=zipfile.ZIP_DEFLATED)
+
+    cache_size = OPTIONS.info_dict.get("cache_size", None)
+    if cache_size is None:
+      raise RuntimeError("can't determine the cache partition size")
+    OPTIONS.cache_size = cache_size
 
     if OPTIONS.incremental_source is None:
       WriteFullOTAPackage(input_zip, output_zip)
