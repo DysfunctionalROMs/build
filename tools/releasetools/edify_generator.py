@@ -389,6 +389,46 @@ class EdifyGenerator(object):
       self.script.append('unmount("%s");' % (p,))
     self.mounts = set()
 
+  def SymlinkLayers(self):
+    self.Print("Moving Layers Directory to /data...")
+    self.Print("Mounting System Partition...")
+    self.Mount("/system")
+    self.Print("Mounting Data Partition...")
+    self.Mount("/data")
+    self.Print("Making New Layers Directory...")
+    self.script.append('run_program("/sbin/busybox", "mkdir", "/data/overlay");')
+    self.Print("Setting Permissions for New Directory...")
+    self.SetPermissionsRecursive("/data/overlay", 0, 0, 0777, 0644, None, None)
+    self.Print("Deleting Old Layers Directory...")
+    self.script.append('delete_recursive("/system/vendor/overlay");')
+    self.Print("Symlinking New Directory to Old Directory...")
+    self.script.append('symlink("/data/overlay", "/system/vendor/overlay");')
+    self.Print("Unmounting System Partition...")
+    self.Unmount("/system")
+    self.Print("Unmounting Data Partition...")
+    self.Unmount("/data")
+    self.Print("Done Moving Layers Directory!")
+
+  def SymlinkHosts(self):
+    self.Print("Moving Hosts File to /data...")
+    self.Print("Mounting System Partition...")
+    self.Mount("/system")
+    self.Print("Mounting Data Partition...")
+    self.Mount("/data")
+    self.Print("Making New Hosts File...")
+    self.script.append('run_program("/sbin/busybox", "cp", "/system/etc/hosts", "/data/hosts");')
+    self.Print("Setting Permissions for New Hosts File...")
+    self.SetPermissions("/data/hosts", 0, 0, 0644, None, None)
+    self.Print("Deleting Old Hosts File...")
+    self.script.append('delete_recursive("/system/etc/hosts");')
+    self.Print("Symlinking New Hosts File to Old Hosts File...")
+    self.script.append('symlink("/data/hosts", "/system/etc/hosts");')
+    self.Print("Unmounting System Partition...")
+    self.Unmount("/system")
+    self.Print("Unmounting Data Partition...")
+    self.Unmount("/data")
+    self.Print("Done Moving Hosts File!")
+
   def AddToZip(self, input_zip, output_zip, input_path=None):
     """Write the accumulated script to the output_zip file.  input_zip
     is used as the source for the 'updater' binary needed to run
