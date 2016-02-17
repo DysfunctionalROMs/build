@@ -1128,14 +1128,18 @@ INTERNAL_SYSTEMIMAGE_FILES := $(filter $(TARGET_OUT)/%, \
     $(PDK_FUSION_SYSIMG_FILES) \
     $(RECOVERY_RESOURCE_ZIP) \
     $(RECOVERY_PATCH_INSTALL))
+    
+systemimage-changelog: $(INTERNAL_SYSTEMIMAGE_FILES)
+	@echo -e ${CL_RED}"Making changelog!"${CL_RST}
+	$(hide) APKCERTS=$(APKCERTS_FILE) ./vendor/broken/tools/changelog.sh	
 
 systemimage-squisher: $(INTERNAL_SYSTEMIMAGE_FILES)
 	@echo -e ${CL_RED}"Squishing this bad boy...!"${CL_RST}
 	$(hide) APKCERTS=$(APKCERTS_FILE) ./vendor/broken/tools/squisher
 
-.PHONY: systemimage-squisher
+.PHONY: systemimage-changelog systemimage-squisher
 
-FULL_SYSTEMIMAGE_DEPS := $(INTERNAL_SYSTEMIMAGE_FILES) $(INTERNAL_USERIMAGES_DEPS) systemimage-squisher
+FULL_SYSTEMIMAGE_DEPS := $(INTERNAL_SYSTEMIMAGE_FILES) $(INTERNAL_USERIMAGES_DEPS) systemimage-changelog systemimage-squisher
 # -----------------------------------------------------------------
 # installed file list
 # Depending on anything that $(BUILT_SYSTEMIMAGE) depends on.
