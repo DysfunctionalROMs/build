@@ -85,6 +85,9 @@ dont_bother_goals := clean clobber dataclean installclean \
 ifneq ($(filter $(dont_bother_goals), $(MAKECMDGOALS)),)
 dont_bother := true
 endif
+ifeq ($(MAKECMDGOALS),official)
+dont_bother := true
+endif
 ifeq ($(MAKECMDGOALS),magic)
 dont_bother := true
 endif
@@ -1124,6 +1127,22 @@ dirty:
 	@rm -rf $(OUT_DIR)/target/product/*/*.md5sum
 	@rm -rf $(OUT_DIR)/target/product/*/Changelog.txt
 	@echo -e ${CL_GRN}"build.prop/changelog and zip files erased"${CL_RST}
+
+.PHONY: official
+official:
+	@rm -rf $(HOST_OUT)/obj/NOTICE_FILES \
+	@rm -rf $(HOST_OUT)/sdk \
+	@rm -rf $(OUT_DIR)/target/product/*/*.txt \
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip \
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip.md5sum \
+	@rm -rf $(OUT_DIR)/target/product/*/data \
+	@rm -rf $(OUT_DIR)/target/product/*/obj/APPS \
+	@rm -rf $(OUT_DIR)/target/product/*/obj/NOTICE_FILES \
+	@rm -rf $(OUT_DIR)/target/product/*/obj/PACKAGING \
+	@rm -rf $(OUT_DIR)/target/product/*/recovery \
+	@rm -rf $(OUT_DIR)/target/product/*/root \
+	@rm -rf $(OUT_DIR)/target/product/*/system
+	@echo -e ${CL_GRN}"Do NOT use unless you are an official member and this is an official build"${CL_RST}
 
 #xxx scrape this from ALL_MODULE_NAME_TAGS
 .PHONY: modules
