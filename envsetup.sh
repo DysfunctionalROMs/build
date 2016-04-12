@@ -1800,7 +1800,7 @@ function mka() {
     fi
 }
 
-function official() {
+function bmka() {
     if [ ! -z "$1" ]; then
         for i in "$@"; do
             case $i in
