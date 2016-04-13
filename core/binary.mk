@@ -30,55 +30,7 @@ else
   endif
 endif
 
-# STRICT ALIASING   #
-ifeq ($(STRICT),true)
-ifneq ($(filter $(LOCAL_DISABLE_STRICT),$(LOCAL_MODULE)),)
-
-ifdef LOCAL_CONLYFLAGS
-LOCAL_CONLYFLAGS += \
-	$(DISABLE_STRICT)
-else
-LOCAL_CONLYFLAGS := \
-	$(DISABLE_STRICT)
-endif
-ifdef LOCAL_CPPFLAGS
-LOCAL_CPPFLAGS += \
-	$(DISABLE_STRICT)
-else
-LOCAL_CPPFLAGS := \
-	$(DISABLE_STRICT)
- endif
-
-else
-
-ifdef LOCAL_CONLYFLAGS
-LOCAL_CONLYFLAGS += \
-	$(STRICT_ALIASING_FLAGS)
-else
-LOCAL_CONLYFLAGS := \
-	$(STRICT_ALIASING_FLAGS)
-endif
-ifdef LOCAL_CPPFLAGS
-LOCAL_CPPFLAGS += \
-	$(STRICT_ALIASING_FLAGS)
-else
-LOCAL_CPPFLAGS := \
-	$(STRICT_ALIASING_FLAGS)
-endif
-ifndef LOCAL_CLANG
-LOCAL_CONLYFLAGS += \
-	$(STRICT_GCC_LEVEL)
-LOCAL_CPPFLAGS += \
-	$(STRICT_GCC_LEVEL)
-else
-LOCAL_CONLYFLAGS += \
-	$(STRICT_CLANG_LEVEL)
-LOCAL_CPPFLAGS += \
-	$(STRICT_CLANG_LEVEL)
-endif
-
-endif
-endif
+include $(BUILD_SYSTEM)/broken.mk
 
 # The following LOCAL_ variables will be modified in this file.
 # Because the same LOCAL_ variables may be used to define modules for both 1st arch and 2nd arch,
