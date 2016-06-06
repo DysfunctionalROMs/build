@@ -225,3 +225,16 @@ LOCAL_DISABLE_STRICT := \
     libmmcamera_interface \
     camera.hammerhead \
     tcpdump
+
+DISABLE_STRICT := \
+    -fno-strict-aliasing
+
+STRICT_ALIASING_FLAGS := \
+    -fstrict-aliasing \
+    -Wno-error=strict-aliasing
+
+STRICT_GCC_LEVEL := \
+    -Wstrict-aliasing=2
+
+STRICT_CLANG_LEVEL := \
+    -Wstrict-aliasing=2
