@@ -90,6 +90,7 @@ endif
 endif
 
 # STRICT ALIASING
+ifeq ($(STRICT),true)
 LOCAL_DISABLE_STRICT := \
     third_party_libyuv_libyuv_gyp \
     third_party_WebKit_Source_wtf_wtf_gyp \
@@ -238,3 +239,4 @@ STRICT_GCC_LEVEL := \
 
 STRICT_CLANG_LEVEL := \
     -Wstrict-aliasing=2
+endif
