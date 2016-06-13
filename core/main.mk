@@ -91,6 +91,9 @@ endif
 ifeq ($(MAKECMDGOALS),milestone)
 dont_bother := true
 endif
+ifeq ($(MAKECMDGOALS),experimental)
+dont_bother := true
+endif
 ifeq ($(MAKECMDGOALS),magic)
 dont_bother := true
 endif
@@ -1150,6 +1153,16 @@ milestone:
 	@rm -rf $(OUT_DIR)/target/product/*/system/build.prop
 	@rm -rf $(OUT_DIR)/target/product/*/Changelog.txt
 	@echo -e ${CL_GRN}"Do NOT use unless you are an official member and this is a milestone build"${CL_RST}
+	
+# Setup for experimental builds only
+.PHONY: experimental
+experimental:
+	@rm -rf $(OUT_DIR)/target/product/*/*.txt
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip.md5sum
+	@rm -rf $(OUT_DIR)/target/product/*/system/build.prop
+	@rm -rf $(OUT_DIR)/target/product/*/Changelog.txt
+	@echo -e ${CL_GRN}"Do NOT use unless you are an official member and this is an experimental build"${CL_RST}
 
 #xxx scrape this from ALL_MODULE_NAME_TAGS
 .PHONY: modules
