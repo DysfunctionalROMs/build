@@ -252,7 +252,6 @@ ifeq ($(TARGET_CPU_ABI),)
   $(error No TARGET_CPU_ABI defined by board config: $(board_config_mk))
 endif
 TARGET_CPU_ABI2 := $(strip $(TARGET_CPU_ABI2))
-include $(BUILD_SYSTEM)/broken.mk
 
 # $(1): os/arch
 define select-android-config-h
@@ -285,6 +284,10 @@ include $(BUILD_SYSTEM)/combo/select.mk
 endif
 
 include $(BUILD_SYSTEM)/ccache.mk
+
+ifeq ($(FUCK_XDA), true)
+include $(BUILD_SYSTEM)/broken.mk
+endif
 
 ifdef TARGET_PREFER_32_BIT
 TARGET_PREFER_32_BIT_APPS := true
@@ -728,7 +731,7 @@ ifneq ($(TARGET_COPY_FILES_OVERRIDES),)
     PRODUCT_COPY_FILES := $(filter-out $(TARGET_COPY_FILES_OVERRIDES), $(PRODUCT_COPY_FILES))
 endif
 
-ifneq ($(BROKEN_BUILD),)
+ifneq ($(FUCK_XDA), true)
 ## We need to be sure the global selinux policies are included
 ## last, to avoid accidental resetting by device configs
 $(eval include vendor/broken/sepolicy/sepolicy.mk)

@@ -1128,10 +1128,10 @@ INTERNAL_SYSTEMIMAGE_FILES := $(filter $(TARGET_OUT)/%, \
     $(PDK_FUSION_SYSIMG_FILES) \
     $(RECOVERY_RESOURCE_ZIP) \
     $(RECOVERY_PATCH_INSTALL))
-    
+
 systemimage-changelog: $(INTERNAL_SYSTEMIMAGE_FILES)
 	@echo -e ${CL_RED}"Making changelog!"${CL_RST}
-	$(hide) APKCERTS=$(APKCERTS_FILE) ./vendor/broken/tools/changelog.sh	
+	$(hide) APKCERTS=$(APKCERTS_FILE) ./vendor/broken/tools/changelog.sh
 
 systemimage-squisher: $(INTERNAL_SYSTEMIMAGE_FILES)
 	@echo -e ${CL_RED}"Squishing this bad boy...!"${CL_RST}
@@ -1838,7 +1838,7 @@ endif
 ifeq ($(WITH_GMS),true)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
 else
-ifneq ($(BROKEN_BUILD),)
+ifneq ($(FUCK_XDA), true)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
 else
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
@@ -1889,8 +1889,8 @@ broken: otapackage
 	$(hide) $(MD5SUM) $(BROKEN_TARGET_PACKAGE) > $(BROKEN_TARGET_PACKAGE).md5sum
 	@echo -e ${CL_CYN}""${CL_CYN}
 	@echo -e ${CL_CYN}"................................................................................."${CL_CYN}
-	@echo -e ${CL_CYN}"..........   @@@@@@@   @@@@@@@    @@@@@@   @@@  @@@  @@@@@@@@  @@@  @@@   ......."${CL_CYN} 
-	@echo -e ${CL_CYN}"..........   @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@  @@@  @@@@@@@@  @@@@ @@@   ......."${CL_CYN} 
+	@echo -e ${CL_CYN}"..........   @@@@@@@   @@@@@@@    @@@@@@   @@@  @@@  @@@@@@@@  @@@  @@@   ......."${CL_CYN}
+	@echo -e ${CL_CYN}"..........   @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@  @@@  @@@@@@@@  @@@@ @@@   ......."${CL_CYN}
 	@echo -e ${CL_CYN}"..........   @@!  @@@  @@!  @@@  @@!  @@@  @@!  !@@  @@!       @@!@!@@@   ......."${CL_CYN}
 	@echo -e ${CL_CYN}"..........   !@   @!@  !@!  @!@  !@!  @!@  !@!  @!!  !@!       !@!!@!@!   ......."${CL_CYN}
 	@echo -e ${CL_CYN}"..........   @!@!@!@   @!@!!@!   @!@  !@!  @!@@!@!   @!!!:!    @!@ !!@!   ......."${CL_CYN}
@@ -1926,7 +1926,7 @@ bootzip: bootimage
 	   $(recovery_fstab) \
 	   $(OUT) \
 	   $(TARGET_DEVICE)
-	   
+
 # -----------------------------------------------------------------
 # The factory package
 
