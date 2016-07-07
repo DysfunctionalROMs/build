@@ -1871,7 +1871,7 @@ ifneq ($(TARGET_UNIFIED_DEVICE),)
     endif
 endif
 
-ifeq ($(BLOCK_BASED_OTA),true)
+ifneq ($(BLOCK_BASED_OTA),false)
     $(INTERNAL_OTA_PACKAGE_TARGET): block_based := --block
 endif
 
