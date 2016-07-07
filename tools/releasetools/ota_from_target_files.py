@@ -619,10 +619,10 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print(" ********************************************** ")
   script.Print(" *************Dysfunctional**ROMs************** ")
   script.Print(" ******************presents******************** ")
-  script.Print("        ____ ____, ____, __, ,____,_,  _,       ")          
-  script.Print("       (-|__|-|__)(-/  \( |_/(-|_,(-|\ |        ")   
-  script.Print("        _|__)_|  \,_\__/,_| \,_|__,_| \|,       ")   
-  script.Print("       (    (     (     (    (    (             ")   
+  script.Print("        ____ ____, ____, __, ,____,_,  _,       ")
+  script.Print("       (-|__|-|__)(-/  \( |_/(-|_,(-|\ |        ")
+  script.Print("        _|__)_|  \,_\__/,_| \,_|__,_| \|,       ")
+  script.Print("       (    (     (     (    (    (             ")
   script.Print("   __, _, ____,____, ____,__, _,__, ____,____,  ")
   script.Print("  (-|\/| (-/_|(-|__)(-(__(-|__|(-| (-|_,(-(__   ")
   script.Print("   _| _|,_/  |,_|  \,____)_|  |,_|_,_|__,____)  ")
@@ -634,12 +634,12 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
   device_specific.FullOTA_InstallBegin()
-  
+
   CopyInstallTools(output_zip)
   script.UnpackPackageDir("install", "/tmp/install")
   script.SetPermissionsRecursive("/tmp/install", 0, 0, 0755, 0644, None, None)
   script.SetPermissionsRecursive("/tmp/install/bin", 0, 0, 0755, 0755, None, None)
-  
+
   if OPTIONS.backuptool:
     script.Mount("/system")
     script.Print("Running backup tool...")
@@ -720,26 +720,29 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   if OPTIONS.backuptool:
     script.ShowProgress(0.02, 10)
     if block_based:
-      script.Mount("/system")    	
+      script.Mount("/system")
     script.Print("Restoring system...")
-    script.RunBackup("restore")    
+    script.RunBackup("restore")
     if block_based:
       script.Unmount("/system")
 
-    script.Print("Flashing SuperSU...")
+    script.Print("Rooting your device...")
     common.ZipWriteStr(output_zip, "supersu/supersu.zip",
                    ""+input_zip.read("SYSTEM/addon.d/SuperSU.zip"))
+
     script.Mount("/system")
     script.FlashSuperSU()
-    
+    script.Mount("/system")
+    script.RunBackup("restore")
+
   if block_based:
-    script.Unmount("/system")
+	script.Unmount("/system")
 
   script.ShowProgress(0.05, 5)
   script.WriteRawImage("/boot", "boot.img")
 
   script.ShowProgress(0.2, 10)
-  
+
   # StayBroken
   script.Print(" ")
   script.Print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
@@ -763,7 +766,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print(" ..|S|t|a|y|B|r|o|k|e|n||o|r||G|T|F|O|. ")
   script.Print(" ...+-+-+-+-+-+-+-+-+-+-+ +-+-+ +-+-+.. ")
   script.Print(" ")
-  
+
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
@@ -792,7 +795,7 @@ endif;
 
   common.ZipWriteStr(output_zip, "system/build.prop",
                      ""+input_zip.read("SYSTEM/build.prop"))
-                     
+
   common.ZipWriteStr(output_zip, "META-INF/org/brokenos/releasekey",
                      ""+input_zip.read("META/releasekey.txt"))
 
