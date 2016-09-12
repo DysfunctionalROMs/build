@@ -3,7 +3,7 @@
 print_build_config_vars := \
   PLATFORM_VERSION_CODENAME \
   PLATFORM_VERSION \
-  SLIM_VERSION \
+  BROKEN_VERSION \
   TARGET_PRODUCT \
   TARGET_BUILD_VARIANT \
   TARGET_BUILD_TYPE \
@@ -24,6 +24,16 @@ print_build_config_vars := \
   HOST_BUILD_TYPE \
   BUILD_ID \
   OUT_DIR
+
+ifneq ($(BUILD_WITH_COLORS),0)
+  CL_RED="\033[31m"
+  CL_GRN="\033[32m"
+  CL_YLW="\033[33m"
+  CL_BLU="\033[34m"
+  CL_MAG="\033[35m"
+  CL_CYN="\033[36m"
+  CL_RST="\033[0m"
+endif
 
 ifneq (,$(filter true, $(CYNGN_TARGET) $(EXTERNAL_CLEAN_TARGET)))
 ifeq ($(CYNGN_TARGET),true)
@@ -124,18 +134,18 @@ endif
 
 endif # CALLED_FROM_SETUP
 
+ifneq ($(BUILD_WITH_COLORS),0)
+  CL_CYN="\033[32m"
+endif
+
 ifneq ($(PRINT_BUILD_CONFIG),)
-$(info |==========================================|)
-$(info |               ___________________________|)
-$(info |              / ______________77777777777_|)
-$(info |             / /              7777777777  |)
-$(info |            / / _ _                7777   |)
-$(info |           / / | (_)              7777    |)
-$(info |          / /  | |_ _ __ ___     7777     |)
-$(info |         / /   | | | '_ ` _ \   7777      |)
-$(info |________/ /    | | | | | | | | 7777       |)
-$(info |_________/     |_|_|_| |_| |_|7777        |)
-$(info |==========================================|)
+$(info |====================Dysfunctional Roms=====================|)
+$(info |== @@@@@@@  @@@@@@@   @@@@@@  @@@  @@@ @@@@@@@@ @@@  @@@ ==|)
+$(info |== @@!  @@@ @@!  @@@ @@!  @@@ @@!  !@@ @@!      @@!@!@@@ ==|)
+$(info |== @!@!@!@  @!@!!@!  @!@  !@! @!@@!@!  @!!!:!   @!@@!!@! ==|)
+$(info |== !!:  !!! !!: :!!  !!:  !!! !!: :!!  !!:      !!:  !!! ==|)
+$(info |== :: : ::   :   : :  : :. :   :   ::: : :: ::: ::    :  ==|)
+$(info |===================Steady Breaking Shit====================|)
 $(foreach v, $(print_build_config_vars),\
   $(info $v=$($(v))))
 $(info ============================================)
