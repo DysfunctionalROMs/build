@@ -3,8 +3,12 @@
 # Build system colors
 
 ifneq ($(BUILD_WITH_COLORS),0)
-  CL_SLIM="\033[38;5;24m"
-  CL_SGRY="\033[38;5;239m"
+  CL_RED="\033[31m"
+  CL_GRN="\033[32m"
+  CL_YLW="\033[33m"
+  CL_BLU="\033[34m"
+  CL_MAG="\033[35m"
+  CL_CYN="\033[36m"
   CL_RST="\033[0m"
 endif
 
@@ -240,7 +244,7 @@ endif
 	$(hide) TARGET_BUILD_TYPE="$(TARGET_BUILD_VARIANT)" \
 			TARGET_BUILD_FLAVOR="$(TARGET_BUILD_FLAVOR)" \
 			TARGET_DEVICE="$(TARGET_VENDOR_DEVICE_NAME)" \
-			SLIM_DEVICE="$(TARGET_DEVICE)" \
+			BROKEN_DEVICE="$(BROKEN_DEVICE)" \
 			PRODUCT_NAME="$(TARGET_VENDOR_PRODUCT_NAME)" \
 			PRODUCT_BRAND="$(PRODUCT_BRAND)" \
 			PRODUCT_DEFAULT_LOCALE="$(call get-default-product-locale,$(PRODUCT_LOCALES))" \
@@ -2201,7 +2205,7 @@ endif
 ifeq ($(WITH_GMS),true)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
 else
-ifneq ($(SLIM_BUILD),)
+ifneq ($(BROKEN_BUILD),)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
 else
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
@@ -2233,25 +2237,52 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE)
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-SLIM_TARGET_PACKAGE := $(PRODUCT_OUT)/$(SLIM_MOD_VERSION).zip
+BROKEN_TARGET_PACKAGE := $(PRODUCT_OUT)/$(BROKEN_VERSION).zip
 
-.PHONY: otapackage bacon
+.PHONY: otapackage broken bootzip
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
-bacon: otapackage
-	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(SLIM_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(SLIM_TARGET_PACKAGE) > $(SLIM_TARGET_PACKAGE).md5sum
-	@echo -e ${CL_SLIM}"                              _______________________________________________  "${CL_SLIM}
-	@echo -e ${CL_SLIM}"                             /                              www.slimroms.org | "${CL_SLIM}
-	@echo -e ${CL_SLIM}"                            /   _____________________________________________| "${CL_SLIM}
-	@echo -e ${CL_SLIM}"                           /   /                                               "${CL_SLIM}
-	@echo -e ${CL_SLIM}"                          /   /  _  _      "${CL_SGRY}" ______                             "${CL_SLIM}
-	@echo -e ${CL_SLIM}"                         /   /  | |(_)     "${CL_SGRY}"(_____ \                            "${CL_SLIM}
-	@echo -e ${CL_SLIM}"                        /   /   | | _ _____ "${CL_SGRY}"_____) )___  _____  ___            "${CL_SLIM}
-	@echo -e ${CL_SLIM}"  _____________________/   /    | || |     |"${CL_SGRY}"  __  // _ \|     |/___)           "${CL_SLIM}
-	@echo -e ${CL_SLIM}" |                        /     | || | | | |"${CL_SGRY}" |  \ \ |_| | | | |___ |           "${CL_SLIM}
-	@echo -e ${CL_SLIM}" |_______________________/       \_)_|_|_|_|"${CL_SGRY}"_|   |_\___/|_|_|_(___/            "${CL_SLIM}
-	@echo -e ${CL_SLIM}" "${CL_SLIM}
-	@echo -e ${CL_CYN}"Package Complete: $(SLIM_TARGET_PACKAGE)"${CL_RST}
+broken: otapackage
+		$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(BROKEN_TARGET_PACKAGE)
+		$(hide) $(MD5SUM) $(BROKEN_TARGET_PACKAGE) > $(BROKEN_TARGET_PACKAGE).md5sum
+		@echo -e ${CL_CYN}""${CL_CYN}
+		@echo -e ${CL_CYN}"................................................................................."${CL_CYN}
+		@echo -e ${CL_CYN}"..........   @@@@@@@   @@@@@@@    @@@@@@   @@@  @@@  @@@@@@@@  @@@  @@@   ......."${CL_CYN}
+		@echo -e ${CL_CYN}"..........   @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@  @@@  @@@@@@@@  @@@@ @@@   ......."${CL_CYN}
+		@echo -e ${CL_CYN}"..........   @@!  @@@  @@!  @@@  @@!  @@@  @@!  !@@  @@!       @@!@!@@@   ......."${CL_CYN}
+		@echo -e ${CL_CYN}"..........   !@   @!@  !@!  @!@  !@!  @!@  !@!  @!!  !@!       !@!!@!@!   ......."${CL_CYN}
+		@echo -e ${CL_CYN}"..........   @!@!@!@   @!@!!@!   @!@  !@!  @!@@!@!   @!!!:!    @!@ !!@!   ......."${CL_CYN}
+		@echo -e ${CL_CYN}"..........   !!!@!!!!  !!@!@!    !@!  !!!  !!@!!!    !!!!!:    !@!  !!!   ......."${CL_CYN}
+		@echo -e ${CL_CYN}"..........   !!:  !!!  !!: :!!   !!:  !!!  !!: :!!   !!:       !!:  !!!   ......."${CL_CYN}
+		@echo -e ${CL_CYN}"..........   :!:  !:!  :!:  !:!  :!:  !:!  :!:  !:!  :!:       :!:  !:!   ......."${CL_CYN}
+		@echo -e ${CL_CYN}"..........   :: ::::  ::   :::  ::::: ::   ::  :::   :: ::::   ::   ::    ......."${CL_CYN}
+		@echo -e ${CL_CYN}"..........   :: : ::    :   : :   : :  :    :   :::  : :: ::   ::    :    ......."${CL_CYN}
+		@echo -e ${CL_CYN}"................................................................................."${CL_CYN}
+		@echo -e ${CL_CYN}"...............................  @@@@@@    @@@@@@  .............................."${CL_CYN}
+		@echo -e ${CL_CYN}"..............................  @@@@@@@@  @@@@@@@  .............................."${CL_CYN}
+		@echo -e ${CL_CYN}"..............................  @@!  @@@  !@@  .................................."${CL_CYN}
+		@echo -e ${CL_CYN}"..............................  !@!  @!@  !@!   ................................."${CL_CYN}
+		@echo -e ${CL_CYN}"..............................  @!@  !@!  !!@@!!  ..............................."${CL_CYN}
+		@echo -e ${CL_CYN}"..............................  !@!  !!!   !!@!!!  .............................."${CL_CYN}
+		@echo -e ${CL_CYN}"..............................  !!:  !!!       !:!  ............................."${CL_CYN}
+		@echo -e ${CL_CYN}"..............................  :!:  !:!      !:!  .............................."${CL_CYN}
+		@echo -e ${CL_CYN}"..............................  ::::: ::  :::: ::  .............................."${CL_CYN}
+		@echo -e ${CL_CYN}"...............................  : :  :   :: : :  ..............................."${CL_CYN}
+		@echo -e ${CL_CYN}"................................................................................."${CL_CYN}
+		@echo -e ${CL_CYN}".....................................Broken......................................"${CL_CYN}
+		@echo -e ${CL_CYN}"...........................Based on Android 7.0 Nougat..........................."${CL_CYN}
+		@echo -e ${CL_RST}"................................................................................."${CL_RST}
+		@echo -e ${CL_YLW}"...........................Its Done........Getcha Some..........................."${CL_YLW}
+		@echo -e ${CL_YLW}"...........................Steady Fucking Breaking Shit.........................."${CL_YLW}
+		@echo -e ${CL_RST}""${CL_RST}
+		@echo -e ${CL_BLU}"================================================================================="${CL_BLU}
+		@echo -e ${CL_RST}"$(BROKEN_TARGET_PACKAGE)"${CL_RST}
+		@echo -e ${CL_BLU}"================================================================================="${CL_BLU}
+
+bootzip: bootimage
+	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \
+	   $(recovery_fstab) \
+	   $(OUT) \
+	   $(TARGET_DEVICE)
 
 endif    # build_ota_package
 # -----------------------------------------------------------------
