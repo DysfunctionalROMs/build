@@ -37,6 +37,27 @@ endif
 #TOPDIR := $(TOP)/
 #endif
 
+# Check for unofficial builds.
+# (You wanna play? We play.)
+ifeq ($(FUCK_XDA), true)
+$(warning ***********************************************************)
+$(warning *  ACCESS GRANTED)
+$(warning ***********************************************************)
+else
+$(warning ******************************************************)
+$(warning ******************************************************)
+$(warning *  Nice try slick.)
+$(warning *  BrokenOS can only be built by OFFICIAL team members.)
+$(warning *        __ __  ______           __  _  __ ____  ___ )
+$(warning *     __/ // /_/ ____/_  _______/ /_| |/ // __ \/   |)
+$(warning *    /_  _  __/ /_  / / / / ___/ //_/   // / / / /| |)
+$(warning *   /_  _  __/ __/ / /_/ / /__/ ,< /   |/ /_/ / ___ |)
+$(warning *    /_//_/ /_/    \__,_/\___/_/|_/_/|_/_____/_/  |_|)
+$(warning ******************************************************)
+$(warning ******************************************************)
+$(error You did this to yourselves)
+endif
+
 # Check for broken versions of make.
 ifneq (1,$(strip $(shell expr $(MAKE_VERSION) \>= 3.81)))
 $(warning ********************************************************************************)
