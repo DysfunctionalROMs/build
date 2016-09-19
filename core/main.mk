@@ -110,6 +110,42 @@ dont_bother_goals := clean clobber dataclean installclean \
 ifneq ($(filter $(dont_bother_goals), $(MAKECMDGOALS)),)
 dont_bother := true
 endif
+ifeq ($(MAKECMDGOALS),official)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),milestone)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),experimental)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),final)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),magic)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),dirty)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),appclean)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),imgclean)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),kernelclean)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),systemclean)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),recoveryclean)
+dont_bother := true
+endif
+ifeq ($(MAKECMDGOALS),rootclean)
+dont_bother := true
+endif
 
 ORIGINAL_MAKECMDGOALS := $(MAKECMDGOALS)
 
@@ -1147,6 +1183,102 @@ clean:
 clobber: clean
 
 # The rules for dataclean and installclean are defined in cleanbuild.mk.
+
+# Clears out all apks
+.PHONY: appclean
+appclean:
+	@rm -rf $(OUT_DIR)/target/product/*/system/app
+	@rm -rf $(OUT_DIR)/target/product/*/system/priv-app
+	@echo -e ${CL_GRN}"All apks erased"${CL_RST}
+
+# Clears out all .img files
+.PHONY: imgclean
+imgclean:
+	@rm -rf $(OUT_DIR)/target/product/*/*.img
+	@echo -e ${CL_GRN}"All .img files erased"${CL_RST}
+
+# Clears out all kernel stuff
+.PHONY: kernelclean
+kernelclean:
+	@rm -rf $(OUT_DIR)/target/product/*/kernel
+	@rm -rf $(OUT_DIR)/target/product/*/boot.img
+	@echo -e ${CL_GRN}"All kernel compnents erased"${CL_RST}
+
+# Clears out all system stuff
+.PHONY: systemclean
+systemclean:
+	@rm -rf $(OUT_DIR)/target/product/*/system/
+	@rm -rf $(OUT_DIR)/target/product/*/system.img
+	@echo -e ${CL_GRN}"System components erased"${CL_RST}
+
+# Clears out all recovery stuff
+.PHONY: recoveryclean
+recoveryclean:
+	@rm -rf $(OUT_DIR)/target/product/*/recovery/
+	@rm -rf $(OUT_DIR)/target/product/*/recovery.img
+	@echo -e ${CL_GRN}"All recovery components erased"${CL_RST}
+
+# Clears out all root stuff
+.PHONY: rootclean
+rootclean:
+	@rm -rf $(OUT_DIR)/target/product/*/root/
+	@echo -e ${CL_GRN}"All root components erased"${CL_RST}
+
+# The rules for dataclean and installclean are defined in cleanbuild.mk.
+
+.PHONY: magic
+magic:
+	@rm -rf $(OUT_DIR)/target/product/*
+	@echo -e ${CL_GRN}"Target/Product directory removed."${CL_RST}
+
+# Clears out zip and build.prop
+.PHONY: dirty
+dirty:
+	@rm -rf $(OUT_DIR)/target/product/*/system/build.prop
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip
+	@rm -rf $(OUT_DIR)/target/product/*/*.md5sum
+	@rm -rf $(OUT_DIR)/target/product/*/Changelog.txt
+	@echo -e ${CL_GRN}"build.prop/changelog and zip files erased"${CL_RST}
+
+# Setup for official builds only
+.PHONY: official
+official:
+	@rm -rf $(OUT_DIR)/target/product/*/*.txt
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip.md5sum
+	@rm -rf $(OUT_DIR)/target/product/*/system/build.prop
+	@rm -rf $(OUT_DIR)/target/product/*/Changelog.txt
+	@echo -e ${CL_GRN}"Do NOT use unless you are an official member and this is an official build"${CL_RST}
+
+# Setup for milestone builds only
+.PHONY: milestone
+milestone:
+	@rm -rf $(OUT_DIR)/target/product/*/*.txt
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip.md5sum
+	@rm -rf $(OUT_DIR)/target/product/*/system/build.prop
+	@rm -rf $(OUT_DIR)/target/product/*/Changelog.txt
+	@echo -e ${CL_GRN}"Do NOT use unless you are an official member and this is a milestone build"${CL_RST}
+
+# Setup for experimental builds only
+.PHONY: experimental
+experimental:
+	@rm -rf $(OUT_DIR)/target/product/*/*.txt
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip.md5sum
+	@rm -rf $(OUT_DIR)/target/product/*/system/build.prop
+	@rm -rf $(OUT_DIR)/target/product/*/Changelog.txt
+	@echo -e ${CL_GRN}"Do NOT use unless you are an official member and this is an experimental build"${CL_RST}
+
+# Setup for final builds only
+.PHONY: final
+final:
+	@rm -rf $(OUT_DIR)/target/product/*/*.txt
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip.md5sum
+	@rm -rf $(OUT_DIR)/target/product/*/system/build.prop
+	@rm -rf $(OUT_DIR)/target/product/*/Changelog.txt
+	@echo -e ${CL_GRN}"Do NOT use unless you are an official member and this is a final build"${CL_RST}
 
 #xxx scrape this from ALL_MODULE_NAME_TAGS
 .PHONY: modules
