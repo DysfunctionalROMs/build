@@ -646,8 +646,24 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 """ % bcb_dev)
 
   # Dump fingerprints
-  script.Print("Target: %s" % CalculateFingerprint(
-      oem_props, oem_dict, OPTIONS.info_dict))
+  #script.Print("Target: %s" % CalculateFingerprint(
+  #    oem_props, oem_dict, OPTIONS.info_dict))
+  script.Print(" ")
+  script.Print(" ********************************************** ")
+  script.Print(" *************Dysfunctional**ROMs************** ")
+  script.Print(" ******************presents******************** ")
+  script.Print("        ____ ____, ____, __, ,____,_,  _,       ")
+  script.Print("       (-|__|-|__)(-/  \( |_/(-|_,(-|\ |        ")
+  script.Print("        _|__)_|  \,_\__/,_| \,_|__,_| \|,       ")
+  script.Print("       (    (     (     (    (    (             ")
+  script.Print("  ______ __   _ _     _ |  ______ _____ _______ ")
+  script.Print(" |  ____ | \  | |     | | |  ____   |      |    ")
+  script.Print(" |_____| |  \_| |_____| | |_____| __|__    |    ")
+  script.Print("                        |                       ")
+  script.Print(" *********Based on Android 7.0 Nougat********** ")
+  script.Print(" ****A custom Android firmware experience****** ")
+  script.Print(" ********************************************** ")
+  script.Print(" ")
 
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
   device_specific.FullOTA_InstallBegin()
@@ -659,6 +675,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   if OPTIONS.backuptool:
     script.Mount("/system")
+    script.Print("Running backup tool...")
     script.RunBackup("backup")
     script.Unmount("/system")
 
@@ -750,6 +767,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.ShowProgress(0.02, 10)
     if block_based:
       script.Mount("/system")
+    script.Print("Restoring system...")
     script.RunBackup("restore")
     if block_based:
       script.Unmount("/system")
@@ -758,6 +776,14 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.WriteRawImage("/boot", "boot.img")
 
   script.ShowProgress(0.2, 10)
+
+  # StayBroken
+  script.Print(" ")
+  script.Print(" +-+-+-+-+-+-+-+-+-+-+ +-+-+ +-+ ")
+  script.Print(" .....|S|t|a|y|B|r|o|k|e|n|..... ")
+  script.Print(" +-+-+-+-+-+-+-+-+-+-+ +-+-+ +-+ ")
+  script.Print(" ")
+
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
