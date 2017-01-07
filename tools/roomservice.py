@@ -43,7 +43,7 @@ DEBUG = False
 default_manifest = ".repo/manifest.xml"
 
 custom_local_manifest = ".repo/local_manifests/broken_manifest.xml"
-custom_default_revision = "n7.0"
+custom_default_revision = "n7.1"
 custom_dependencies = "broken.dependencies"
 org_manifest = "BrokenROM"  # leave empty if org is provided in manifest
 org_display = "BrokenROM"  # needed for displaying
