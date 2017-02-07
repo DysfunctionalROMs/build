@@ -677,18 +677,21 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   system_progress = 0.75
 
-  script.Print("                    _____________________ ")
-  script.Print("                   /    www.slimroms.org |")
-  script.Print("                  /                      |")
-  script.Print("                 /    ___________________|")
-  script.Print("                /    /    ___             ")
-  script.Print("               /    / ___/   \            ")
-  script.Print("              /    / /   \___/____   ____ ")
-  script.Print("             /    /  |   |___/    \_/    |")
-  script.Print(" ___________/    /   |   |   |           |")
-  script.Print("|               /    |   |   |   |   |   |")
-  script.Print("|              /     |   |   |   |   |   |")
-  script.Print("|_____________/      \___^___^___^___^___/")
+  script.Print(" ")
+  script.Print(" ********************************************** ")
+  script.Print(" **************Dysfunctional**ROMs************* ")
+  script.Print(" ********************present******************* ")
+  script.Print("        ____ ____, ____, __, ,____,_,  _,       ")
+  script.Print("       (-|__|-|__)(-/  \( |_/(-|_,(-|\ |        ")
+  script.Print("        _|__)_|  \,_\__/,_| \,_|__,_| \|,       ")
+  script.Print("       (    (     (     (    (    (             ")
+  script.Print("  ______ __   _ _     _ |  ______ _____ _______ ")
+  script.Print(" |  ____ | \  | |     | | |  ____   |      |    ")
+  script.Print(" |_____| |  \_| |_____| | |_____| __|__    |    ")
+  script.Print("                        |                       ")
+  script.Print(" ********************************************** ")
+  script.Print(" *****A custom Android firmware experience***** ")
+  script.Print(" ********************************************** ")
   script.Print(" ")
 
   if OPTIONS.wipe_user_data:
@@ -817,7 +820,7 @@ endif;
   common.ZipWriteStr(output_zip, "system/build.prop",
                      ""+input_zip.read("SYSTEM/build.prop"))
 
-  common.ZipWriteStr(output_zip, "META-INF/org/slimroms/releasekey",
+  common.ZipWriteStr(output_zip, "META-INF/org/brokenos/releasekey",
                      ""+input_zip.read("META/releasekey.txt"))
 
 def WritePolicyConfig(file_name, output_zip):
