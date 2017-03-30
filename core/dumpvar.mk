@@ -1,3 +1,8 @@
+# Build system colors
+ifneq ($(BUILD_WITH_COLORS),0)
+  CL_GRN=$(shell tput setaf 2)
+  CL_RST=$(shell tput sgr0)
+endif
 
 # List of variables we want to print in the build banner.
 print_build_config_vars := \
@@ -125,14 +130,14 @@ endif
 endif # CALLED_FROM_SETUP
 
 ifneq ($(PRINT_BUILD_CONFIG),)
-$(info |====================Dysfunctional Roms=====================|)
-$(info |== @@@@@@@  @@@@@@@   @@@@@@  @@@  @@@ @@@@@@@@ @@@  @@@ ==|)
-$(info |== @@!  @@@ @@!  @@@ @@!  @@@ @@!  !@@ @@!      @@!@!@@@ ==|)
-$(info |== @!@!@!@  @!@!!@!  @!@  !@! @!@@!@!  @!!!:!   @!@@!!@! ==|)
-$(info |== !!:  !!! !!: :!!  !!:  !!! !!: :!!  !!:      !!:  !!! ==|)
-$(info |== :: : ::   :   : :  : :. :   :   ::: : :: ::: ::    :  ==|)
-$(info |===================Steady Breaking Shit====================|)
+$(info $(CL_GRN)|====================$(CL_RST)Dysfunctional Roms$(CL_GRN)=====================|$(CL_RST))
+$(info == $(CL_GRN)@@@@@@@  @@@@@@@   @@@@@@  @@@  @@@ @@@@@@@@ @@@  @@@ $(CL_RST)==)
+$(info == $(CL_GRN)@@!  @@@ @@!  @@@ @@!  @@@ @@!  !@@ @@!      @@!@!@@@ $(CL_RST)==)
+$(info == $(CL_GRN)@!@!@!@  @!@!!@!  @!@  !@! @!@@!@!  @!!!:!   @!@@!!@! $(CL_RST)==)
+$(info == $(CL_GRN)!!:  !!! !!: :!!  !!:  !!! !!: :!!  !!:      !!:  !!! $(CL_RST)==)
+$(info == $(CL_GRN):: : ::   :   : :  : :. :   :   ::: : :: ::: ::    :  $(CL_RST)==)
+$(info $(CL_GRN)|===================$(CL_RST)Steady Breaking Shit$(CL_GRN)====================|$(CL_RST))
 $(foreach v, $(print_build_config_vars),\
   $(info $v=$($(v))))
-$(info ============================================)
+$(info $(CL_GRN)============================================$(CL_RST))
 endif
