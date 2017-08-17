@@ -973,7 +973,7 @@ $(eval include device/cardinal/sepolicy/common/sepolicy.mk)
 -include $(TOPDIR)vendor/*/build/core/apicheck.mk
 
 # Rules for QCOM targets
--include $(TOPDIR)vendor/citrus/build/core/qcom_target.mk
+-include $(TOPDIR)vendor/cardinal/build/core/qcom_target.mk
 endif
 
 include $(BUILD_SYSTEM)/dumpvar.mk
