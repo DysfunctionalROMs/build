@@ -193,8 +193,7 @@ def BuildVerityMetadata(image_size, verity_metadata_path, root_hash, salt,
     cmd += " --signer_args=\"%s\"" % (' '.join(signer_args),)
 
   print(cmd)
-
-  status, output = commands.getstatusoutput(cmd)
+  status, output = getstatusoutput(cmd)
   if status:
     print("Could not build verity metadata!")
 

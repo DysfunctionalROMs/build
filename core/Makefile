@@ -36,7 +36,7 @@ endif
 # src:dest pair is the first one to match the same dest"
 #$(1): the src:dest pair
 define check-product-copy-files
-$(if $(filter %.apk, $(call word-colon, 2, $(1))),$(error \
+$(if $(filter %.apk, $(call word-colon, 2, $(1))),$(info \
     Prebuilt apk found in PRODUCT_COPY_FILES: $(1), use BUILD_PREBUILT instead!))
 endef
 # filter out the duplicate <source file>:<dest file> pairs.
@@ -48,6 +48,7 @@ unique_product_copy_files_destinations :=
 $(foreach cf,$(unique_product_copy_files_pairs), \
     $(eval _src := $(call word-colon,1,$(cf))) \
     $(eval _dest := $(call word-colon,2,$(cf))) \
+    $(call check-product-copy-files,$(cf)) \
     $(if $(filter $(unique_product_copy_files_destinations),$(_dest)), \
         $(info PRODUCT_COPY_FILES $(cf) ignored.), \
         $(eval _fulldest := $(call append-path,$(PRODUCT_OUT),$(_dest))) \
@@ -1858,11 +1859,8 @@ built_ota_tools :=
 
 # We can't build static executables when SANITIZE_TARGET=address
 ifeq ($(strip $(SANITIZE_TARGET)),)
-ifeq ($(TARGET_ARCH),arm64)
-	built_ota_tools += $(call intermediates-dir-for,EXECUTABLES,updater,,,32)/updater
-else
-	built_ota_tools += $(call intermediates-dir-for,EXECUTABLES,updater)/updater
-endif
+built_ota_tools += \
+    $(call intermediates-dir-for,EXECUTABLES,updater,,,$(TARGET_PREFER_32_BIT))/updater
 endif
 
 $(BUILT_TARGET_FILES_PACKAGE): PRIVATE_OTA_TOOLS := $(built_ota_tools)
@@ -2019,10 +2017,10 @@ endif # BOARD_USES_RECOVERY_AS_BOOT
 	@# Contents of the data image
 	$(hide) $(call package_files-copy-root, \
 		$(TARGET_OUT_DATA),$(zip_root)/DATA)
-ifdef BOARD_CUSTOM_BOOTIMG
 	@# Prebuilt boot images
 	$(hide) mkdir -p $(zip_root)/BOOTABLE_IMAGES
 	$(hide) $(ACP) $(INSTALLED_BOOTIMAGE_TARGET) $(zip_root)/BOOTABLE_IMAGES/
+ifeq ($(BOARD_USES_FULL_RECOVERY_IMAGE),true)
 	$(hide) $(ACP) $(INSTALLED_RECOVERYIMAGE_TARGET) $(zip_root)/BOOTABLE_IMAGES/
 endif
 ifdef BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE
@@ -2118,6 +2116,11 @@ endif
 ifeq ($(TARGET_NOT_USE_GZIP_RECOVERY_RAMDISK),true)
 	$(hide) echo "no_gzip_recovery_ramdisk=true" >> $(zip_root)/META/misc_info.txt
 endif
+
+ifeq ($(TARGET_NO_TWO_STEP_RECOVERY),true)
+	$(hide) echo "no_two_step_recovery=true" >> $(zip_root)/META/misc_info.txt
+endif
+
 ifdef TARGET_RELEASETOOL_FACTORY_FROM_TARGET_SCRIPT
 	$(hide) echo "factory_from_target_script=$(TARGET_RELEASETOOL_FACTORY_FROM_TARGET_SCRIPT)" >> $(zip_root)/META/misc_info.txt
 endif
