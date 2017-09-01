@@ -525,16 +525,16 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     model = GetBuildProp("ro.product.model", OPTIONS.info_dict)
     script.Print("***********************************************");
     script.Print("           Cardinal-AOSP for %s"%(model));
-    script.Print("	   Cardinal-AOSP Version: %s"%(version));
-    script.Print("     AOSP Version: %s"%(build));
+    script.Print("     Cardinal-AOSP Version: %s"%(version));
+    script.Print("     Based on: %s"%(build));
     script.Print("     Compiled on: %s"%(date));
     script.Print("***********************************************");
   else:
     name = GetBuildProp("ro.product.name", OPTIONS.info_dict)
     script.Print("***********************************************");
     script.Print("           Cardinal-AOSP for %s"%(name));
-    script.Print("	   Cardinal-AOSP Version: %s"%(version));
-    script.Print("     AOSP Version: %s"%(build));
+    script.Print("     Cardinal-AOSP Version: %s"%(version));
+    script.Print("     Based on: %s"%(build));
     script.Print("     Compiled on: %s"%(date));
     script.Print("***********************************************");
 
