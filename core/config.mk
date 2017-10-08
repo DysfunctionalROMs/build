@@ -187,6 +187,13 @@ include $(BUILD_SYSTEM)/envsetup.mk
 # See envsetup.mk for a description of SCAN_EXCLUDE_DIRS
 FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 
+# General entries for project pathmap.  Any entries listed here should
+# be device and hardware independent.
+$(call project-set-path-variant,recovery,RECOVERY_VARIANT,bootable/recovery)
+
+-include vendor/extra/BoardConfigExtra.mk
+-include vendor/broken/config/BoardConfigBROKEN.mk
+
 # The build system exposes several variables for where to find the kernel
 # headers:
 #   TARGET_DEVICE_KERNEL_HEADERS is automatically created for the current
@@ -588,6 +595,7 @@ else
 AVBTOOL := $(BOARD_CUSTOM_AVBTOOL)
 endif
 APICHECK := $(HOST_OUT_EXECUTABLES)/apicheck$(HOST_EXECUTABLE_SUFFIX)
+MKIMAGE :=  $(HOST_OUT_EXECUTABLES)/mkimage$(HOST_EXECUTABLE_SUFFIX)
 FS_GET_STATS := $(HOST_OUT_EXECUTABLES)/fs_get_stats$(HOST_EXECUTABLE_SUFFIX)
 ifeq ($(TARGET_USES_MKE2FS),true)
 MAKE_EXT4FS := $(HOST_OUT_EXECUTABLES)/mke2fs$(HOST_EXECUTABLE_SUFFIX)
@@ -883,6 +891,24 @@ dont_bother_goals := clean clobber dataclean installclean \
 ifndef KATI
 include $(BUILD_SYSTEM)/ninja_config.mk
 include $(BUILD_SYSTEM)/soong_config.mk
+endif
+
+ifneq ($(BROKEN_BUILD),)
+## We need to be sure the global selinux policies are included
+## last, to avoid accidental resetting by device configs
+$(eval include device/slim/sepolicy/common/sepolicy.mk)
+
+# Include any vendor specific config.mk file
+-include $(TOPDIR)vendor/*/build/core/config.mk
+
+# Include any vendor specific apicheck.mk file
+-include $(TOPDIR)vendor/*/build/core/apicheck.mk
+
+# Rules for QCOM targets
+-include $(TOPDIR)vendor/broken/build/core/qcom_target.mk
+
+# Rules for MTK targets
+-include $(TOPDIR)vendor/broken/build/core/mtk_target.mk
 endif
 
 include $(BUILD_SYSTEM)/dumpvar.mk

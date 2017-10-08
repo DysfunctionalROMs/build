@@ -420,6 +420,21 @@ def _BuildBootableImage(sourcedir, fs_config_file, info_dict=None,
     cmd.append("--pagesize")
     cmd.append(open(fn).read().rstrip("\n"))
 
+  fn = os.path.join(sourcedir, "tagsaddr")
+  if os.access(fn, os.F_OK):
+    cmd.append("--tags-addr")
+    cmd.append(open(fn).read().rstrip("\n"))
+
+  fn = os.path.join(sourcedir, "ramdisk_offset")
+  if os.access(fn, os.F_OK):
+    cmd.append("--ramdisk_offset")
+    cmd.append(open(fn).read().rstrip("\n"))
+
+  fn = os.path.join(sourcedir, "dt")
+  if os.access(fn, os.F_OK):
+    cmd.append("--dt")
+    cmd.append(fn)
+
   args = info_dict.get("mkbootimg_args", None)
   if args and args.strip():
     cmd.extend(shlex.split(args))
@@ -1557,7 +1572,10 @@ PARTITION_TYPES = {
     "ext4": "EMMC",
     "emmc": "EMMC",
     "f2fs": "EMMC",
-    "squashfs": "EMMC"
+    "squashfs": "EMMC",
+    "ext2": "EMMC",
+    "ext3": "EMMC",
+    "vfat": "EMMC"
 }
 
 def GetTypeAndDevice(mount_point, info):
@@ -1602,14 +1620,18 @@ def MakeRecoveryPatch(input_dir, output_sink, recovery_img, boot_img,
 
   full_recovery_image = info_dict.get("full_recovery_image", None) == "true"
   system_root_image = info_dict.get("system_root_image", None) == "true"
+  use_bsdiff = info_dict.get("no_gzip_recovery_ramdisk", None) == "true"
 
   if full_recovery_image:
     output_sink("etc/recovery.img", recovery_img.data)
 
   else:
-    diff_program = ["imgdiff"]
+    if use_bsdiff:
+      diff_program = ["bsdiff"]
+    else:
+      diff_program = ["imgdiff"]
     path = os.path.join(input_dir, "SYSTEM", "etc", "recovery-resource.dat")
-    if os.path.exists(path):
+    if os.path.exists(path) and not use_bsdiff:
       diff_program.append("-b")
       diff_program.append(path)
       bonus_args = "-b /system/etc/recovery-resource.dat"
