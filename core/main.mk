@@ -241,9 +241,9 @@ endif
 #
 # -----------------------------------------------------------------
 # Validate ADDITIONAL_DEFAULT_PROPERTIES.
-ifneq ($(ADDITIONAL_DEFAULT_PROPERTIES),)
-$(error ADDITIONAL_DEFAULT_PROPERTIES must not be set before here: $(ADDITIONAL_DEFAULT_PROPERTIES))
-endif
+#ifneq ($(ADDITIONAL_DEFAULT_PROPERTIES),)
+#$(error ADDITIONAL_DEFAULT_PROPERTIES must not be set before here: $(ADDITIONAL_DEFAULT_PROPERTIES))
+#endif
 
 #
 # -----------------------------------------------------------------
