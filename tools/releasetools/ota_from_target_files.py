@@ -498,6 +498,23 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   system_progress = 0.75
 
+  script.Print(" ")
+  script.Print(" ********************************************** ")
+  script.Print(" **************Dysfunctional**ROMs************* ")
+  script.Print(" ********************present******************* ")
+  script.Print("        ____ ____, ____, __, ,____,_,  _,       ")
+  script.Print("       (-|__|-|__)(-/  \( |_/(-|_,(-|\ |        ")
+  script.Print("        _|__)_|  \,_\__/,_| \,_|__,_| \|,       ")
+  script.Print("       (    (     (     (    (    (             ")
+  script.Print("  ______ __   _ _     _ |  ______ _____ _______ ")
+  script.Print(" |  ____ | \  | |     | | |  ____   |      |    ")
+  script.Print(" |_____| |  \_| |_____| | |_____| __|__    |    ")
+  script.Print("                        |                       ")
+  script.Print(" ********************************************** ")
+  script.Print(" *****A custom Android firmware experience***** ")
+  script.Print(" ********************************************** ")
+  script.Print(" ")
+
   if OPTIONS.wipe_user_data:
     system_progress -= 0.1
   if HasVendorPartition(input_zip):
