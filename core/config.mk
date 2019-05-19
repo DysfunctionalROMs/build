@@ -230,7 +230,7 @@ $(call project-set-path-variant,ril,TARGET_RIL_VARIANT,hardware/ril)
 
 -include vendor/extra/BoardConfigExtra.mk
 ifneq ($(SLIM_BUILD),)
-include vendor/slim/config/BoardConfigSlim.mk
+include vendor/broken/config/BoardConfigBroken.mk
 endif
 
 # The build system exposes several variables for where to find the kernel
@@ -1146,7 +1146,7 @@ endif
 ifneq ($(SLIM_BUILD),)
 ## We need to be sure the global selinux policies are included
 ## last, to avoid accidental resetting by device configs
-$(eval include device/slim/sepolicy/common/sepolicy.mk)
+$(eval include device/broken/sepolicy/common/sepolicy.mk)
 endif
 
 # Include any vendor specific config.mk file
